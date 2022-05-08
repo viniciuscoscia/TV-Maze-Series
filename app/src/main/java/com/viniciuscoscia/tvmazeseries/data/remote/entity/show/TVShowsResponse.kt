@@ -12,7 +12,7 @@ data class TVShowResponseModel(
     val externals: Externals,
     val genres: List<String>,
     val id: Int,
-    val image: Image,
+    val image: Image?,
     val language: String,
     @Json(name = "_links")
     val links: Links,
@@ -40,8 +40,8 @@ data class TVShowResponseModel(
 
     @JsonClass(generateAdapter = true)
     data class Image(
-        val medium: String,
-        val original: String
+        val medium: String?,
+        val original: String?
     )
 
     @JsonClass(generateAdapter = true)
@@ -99,7 +99,7 @@ fun List<TVShowResponseModel>.toDomain(): List<TVShowModel> = map {
     TVShowModel(
         id = it.id,
         name = it.name,
-        imageSmallUrl = it.image.medium,
-        imageUrl = it.image.original
+        imageSmallUrl = it.image?.medium ?: "",
+        imageUrl = it.image?.original ?: ""
     )
 }

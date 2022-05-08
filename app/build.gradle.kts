@@ -91,6 +91,10 @@ dependencies {
     implementation(Libs.pagingCompose)
     debugImplementation(Libs.composeTooling)
 
+    // Coil
+    implementation(Libs.coil)
+    implementation(Libs.coilCompose)
+
     // Room
     implementation(Libs.roomRuntime)
     implementation(Libs.roomKtx)

@@ -3,6 +3,7 @@ object Versions {
     const val androidMaterial = "1.6.0"
     const val androidConstraint = "2.0.4"
     const val activityCompose = "1.4.0"
+    const val coil = "2.0.0-rc03"
     const val kotlin = "1.6.10"
     const val ktx = "1.7.0"
     const val gradlePlugin = "7.0.1"
@@ -37,6 +38,8 @@ object Libs {
         "androidx.navigation:navigation-fragment-ktx:${Versions.androidNavigation}"
     const val androidNavigationUi =
         "androidx.navigation:navigation-ui-ktx:${Versions.androidNavigation}"
+    const val coil = "io.coil-kt:coil:${Versions.coil}"
+    const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
     const val coroutines =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
     const val coroutinesAndroid =
