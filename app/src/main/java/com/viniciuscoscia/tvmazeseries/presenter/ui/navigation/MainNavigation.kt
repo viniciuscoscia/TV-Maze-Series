@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.viniciuscoscia.tvmazeseries.presenter.ui.main.MainScreen
 
 @Composable
 fun NavigationComponent() {
@@ -13,7 +14,7 @@ fun NavigationComponent() {
         startDestination = Screen.MainScreen.route
     ) {
         composable(Screen.MainScreen.route) {
-
+            MainScreen(navController = navController)
         }
     }
 }

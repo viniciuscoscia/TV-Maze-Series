@@ -1,12 +1,12 @@
 package com.viniciuscoscia.tvmazeseries.domain.usecase
 
+import androidx.paging.PagingData
 import com.viniciuscoscia.tvmazeseries.data.repository.TVMazeRepository
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
 
 class FetchShowsByPageUseCase(private val repository: TVMazeRepository) {
-    suspend operator fun invoke(page: Int): List<TVShowModel> = withContext(Dispatchers.IO) {
-        repository.getShowsByPageNumber(page)
+    operator fun invoke(): Flow<PagingData<TVShowModel>> {
+        return repository.getShowsByPageNumber()
     }
 }

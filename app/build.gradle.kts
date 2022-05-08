@@ -71,7 +71,6 @@ dependencies {
     implementation(Libs.lifecycleRuntime)
     implementation(Libs.lifecycleCommon)
     implementation(Libs.lifecycleViewModel)
-    implementation(Libs.lifecycleLiveData)
 
     // Koin
     implementation(Libs.koinAndroid)
@@ -85,8 +84,11 @@ dependencies {
     implementation(Libs.composeMaterial)
     implementation(Libs.composeUi)
     implementation(Libs.composeToolingPreview)
+    implementation(Libs.composeFoundation)
+    implementation(Libs.composeFoundationLayout)
     implementation(Libs.activityCompose)
     implementation(Libs.navigationCompose)
+    implementation(Libs.pagingCompose)
     debugImplementation(Libs.composeTooling)
 
     // Room

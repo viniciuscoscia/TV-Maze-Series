@@ -29,29 +29,40 @@ object Libs {
     const val activityCompose = "androidx.activity:activity-compose:${Versions.activityCompose}"
     const val androidAppCompat = "androidx.appcompat:appcompat:${Versions.androidAppCompat}"
     const val androidMaterial = "com.google.android.material:material:${Versions.androidMaterial}"
-    const val androidConstraint = "androidx.constraintlayout:constraintlayout:${Versions.androidConstraint}"
+    const val androidConstraint =
+        "androidx.constraintlayout:constraintlayout:${Versions.androidConstraint}"
     const val androidExtJUnit = "androidx.test.ext:junit:${Versions.androidExtJUnit}"
     const val androidEspresso = "androidx.test.espresso:espresso-core:${Versions.androidEspresso}"
-    const val androidNavigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.androidNavigation}"
-    const val androidNavigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.androidNavigation}"
-    const val coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
-    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
-    const val coroutineTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutines}"
+    const val androidNavigationFragment =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.androidNavigation}"
+    const val androidNavigationUi =
+        "androidx.navigation:navigation-ui-ktx:${Versions.androidNavigation}"
+    const val coroutines =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
+    const val coroutinesAndroid =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
+    const val coroutineTest =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutines}"
     const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
     const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
+    const val composeFoundation = "androidx.compose.foundation:foundation:${Versions.compose}"
+    const val composeFoundationLayout =
+        "androidx.compose.foundation:foundation-layout:${Versions.compose}"
     const val composeTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val composeToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
-    const val navigationCompose =
-        "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
+    const val jUnit = "junit:junit:${Versions.jUnit}"
     const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
     const val koinCompose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
     const val ktxCore = "androidx.core:core-ktx:${Versions.ktx}"
     const val lifecycleRuntime = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
     const val lifecycleCommon = "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
-    const val lifecycleViewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+    const val lifecycleViewModel =
+        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
-    const val jUnit = "junit:junit:${Versions.jUnit}"
+    const val navigationCompose =
+        "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
+    const val pagingCompose = "androidx.paging:paging-compose:1.0.0-alpha14"
     const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
     const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
@@ -83,7 +94,7 @@ object ClassPaths {
 
 const val latestSdk = 32
 object Configs {
-    const val applicationId = "co.fullstacklabs.androidkotlinchallenge"
+    const val applicationId = "com.viniciuscoscia.tvmazeseries"
     const val compileSdkVersion = latestSdk
     const val minSdkVersion = 21
     const val targetSdkVersion = latestSdk

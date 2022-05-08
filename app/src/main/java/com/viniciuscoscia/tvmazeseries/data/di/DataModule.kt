@@ -1,7 +1,7 @@
 package com.viniciuscoscia.tvmazeseries.data.di
 
 import com.viniciuscoscia.tvmazeseries.BuildConfig
-import com.viniciuscoscia.tvmazeseries.data.remote.datasource.TvMazeAPI
+import com.viniciuscoscia.tvmazeseries.data.remote.api.TVMazeAPI
 import com.viniciuscoscia.tvmazeseries.data.repository.TVMazeRepository
 import com.viniciuscoscia.tvmazeseries.data.repository.TVMazeRepositoryImpl
 import org.koin.core.module.Module
@@ -17,7 +17,7 @@ private val remoteDataSourceModule = module {
     factory { providesOkHttpClient() }
 
     single {
-        createWebService<TvMazeAPI>(
+        createWebService<TVMazeAPI>(
             okHttpClient = get(),
             url = BuildConfig.TVMazeBaseURL
         )
