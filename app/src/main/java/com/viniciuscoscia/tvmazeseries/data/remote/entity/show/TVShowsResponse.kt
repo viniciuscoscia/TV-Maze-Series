@@ -95,11 +95,15 @@ data class TVShowResponseModel(
     )
 }
 
-fun List<TVShowResponseModel>.toDomain(): List<TVShowModel> = map {
-    TVShowModel(
-        id = it.id,
-        name = it.name,
-        imageSmallUrl = it.image?.medium ?: "",
-        imageUrl = it.image?.original ?: ""
+fun TVShowResponseModel.toDomain(): TVShowModel {
+    return TVShowModel(
+        id = id,
+        name = name,
+        imageSmallUrl = image?.medium ?: "",
+        imageUrl = image?.original ?: ""
     )
+}
+
+fun List<TVShowResponseModel>.toDomain(): List<TVShowModel> = map {
+    it.toDomain()
 }
