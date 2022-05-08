@@ -1,4 +1,4 @@
-package com.viniciuscoscia.tvmazeseries
+package com.viniciuscoscia.tvmazeseries.presenter
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.viniciuscoscia.tvmazeseries.ui.theme.TVMazeSeriesTheme
+import com.viniciuscoscia.tvmazeseries.presenter.theme.TVMazeSeriesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,22 +22,22 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    Greeting("Android")
+                    MainScreen()
                 }
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+    @Composable
+    private fun MainScreen() {
+        Text(text = "Teste")
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TVMazeSeriesTheme {
-        Greeting("Android")
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        TVMazeSeriesTheme {
+            MainScreen()
+        }
     }
 }

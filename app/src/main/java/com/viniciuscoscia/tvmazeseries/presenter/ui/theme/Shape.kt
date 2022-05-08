@@ -1,4 +1,4 @@
-package com.viniciuscoscia.tvmazeseries.ui.theme
+package com.viniciuscoscia.tvmazeseries.presenter.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
