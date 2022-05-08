@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.config.JvmAnalysisFlags.useIR
-
 plugins {
     id(Plugins.androidApplication)
     id(Plugins.kotlinAndroid)
@@ -45,7 +43,7 @@ android {
         jvmTarget = "1.8"
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = rootProject.extra["compose_version"] as String
+        kotlinCompilerExtensionVersion = Versions.compose
     }
     packagingOptions {
         resources {
