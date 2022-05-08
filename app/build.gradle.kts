@@ -20,6 +20,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        buildConfigField("String", "TVMazeBaseURL", "\"https://api.tvmaze.com/\"")
     }
 
     buildTypes {
@@ -31,9 +32,11 @@ android {
             )
         }
     }
+
     buildFeatures {
         compose = true
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -42,9 +45,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.compose
     }
+
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -81,6 +86,7 @@ dependencies {
     implementation(Libs.composeUi)
     implementation(Libs.composeToolingPreview)
     implementation(Libs.activityCompose)
+    implementation(Libs.navigationCompose)
     debugImplementation(Libs.composeTooling)
 
     // Room

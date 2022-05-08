@@ -1,6 +1,6 @@
 package com.viniciuscoscia.tvmazeseries.domain.model
 
-data class ShowModel(
+data class TVShowModel(
     val id: Int,
     val name: String,
     val imageSmallUrl: String,

@@ -1,4 +1,4 @@
-package com.viniciuscoscia.tvmazeseries.presenter
+package com.viniciuscoscia.tvmazeseries.presenter.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -30,6 +30,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun MainScreen() {
+
         Text(text = "Teste")
     }
 

@@ -9,6 +9,7 @@ object Versions {
     const val kotlinCoroutines = "1.6.1"
     const val lifecycle = "2.4.1"
     const val compose = "1.1.1"
+    const val navigationCompose = "2.4.2"
     const val jUnit = "4.13.2"
     const val androidExtJUnit = "1.1.3"
     const val androidEspresso = "3.4.0"
@@ -40,6 +41,8 @@ object Libs {
     const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
     const val composeTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val composeToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+    const val navigationCompose =
+        "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
     const val koinCompose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
     const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
@@ -78,7 +81,7 @@ object ClassPaths {
     const val navigationSafeArgsPlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.androidNavigation}"
 }
 
-const val latestSdk = 31
+const val latestSdk = 32
 object Configs {
     const val applicationId = "co.fullstacklabs.androidkotlinchallenge"
     const val compileSdkVersion = latestSdk

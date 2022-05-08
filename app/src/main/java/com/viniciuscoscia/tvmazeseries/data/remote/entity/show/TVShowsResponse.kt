@@ -2,7 +2,7 @@ package com.viniciuscoscia.tvmazeseries.data.remote.entity.show
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import com.viniciuscoscia.tvmazeseries.domain.model.ShowModel
+import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 
 class TVShowsResponse : ArrayList<TVShowsResponse.TVShow>() {
     @JsonClass(generateAdapter = true)
@@ -97,8 +97,8 @@ class TVShowsResponse : ArrayList<TVShowsResponse.TVShow>() {
     }
 }
 
-fun TVShowsResponse.toDomain(): List<ShowModel> = map {
-    ShowModel(
+fun TVShowsResponse.toDomain(): List<TVShowModel> = map {
+    TVShowModel(
         id = it.id,
         name = it.name,
         imageSmallUrl = it.image.medium,
