@@ -21,7 +21,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.rememberAsyncImagePainter
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
-import com.viniciuscoscia.tvmazeseries.presenter.ui.navigation.Screen
+import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
 import org.koin.androidx.compose.inject
 
 @Composable

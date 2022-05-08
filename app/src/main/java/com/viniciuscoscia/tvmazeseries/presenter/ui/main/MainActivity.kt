@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.viniciuscoscia.tvmazeseries.presenter.navigation.NavigationComponent
 import com.viniciuscoscia.tvmazeseries.presenter.theme.TVMazeSeriesTheme
-import com.viniciuscoscia.tvmazeseries.presenter.ui.navigation.NavigationComponent
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

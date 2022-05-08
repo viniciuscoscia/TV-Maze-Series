@@ -1,4 +1,4 @@
-package com.viniciuscoscia.tvmazeseries.presenter.ui.navigation
+package com.viniciuscoscia.tvmazeseries.presenter.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType

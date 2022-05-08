@@ -5,7 +5,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowsByPageUseCase
-import com.viniciuscoscia.tvmazeseries.presenter.ui.util.KoinViewModel
+import com.viniciuscoscia.tvmazeseries.presenter.util.KoinViewModel
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.component.inject
 
