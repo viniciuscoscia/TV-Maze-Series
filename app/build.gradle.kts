@@ -6,14 +6,11 @@ plugins {
     id(Plugins.kotlinKapt)
     id(Plugins.navigationSafeArgs)
     id(Plugins.koin)
+    id("name.remal.check-dependency-updates") version "1.5.0"
 }
 
 android {
     compileSdk = Configs.compileSdkVersion
-
-    buildFeatures {
-        viewBinding = true
-    }
 
     defaultConfig {
         minSdk = Configs.minSdkVersion
@@ -66,7 +63,6 @@ dependencies {
     // Android
     implementation(Libs.androidAppCompat)
     implementation(Libs.androidMaterial)
-    implementation(Libs.androidConstraint)
 
     // Jetpack LifeCycle
     implementation(Libs.lifecycleRuntime)
@@ -74,12 +70,9 @@ dependencies {
     implementation(Libs.lifecycleViewModel)
     implementation(Libs.lifecycleLiveData)
 
-    // Navigation
-    implementation(Libs.androidNavigationFragment)
-    implementation(Libs.androidNavigationUi)
-
     // Koin
     implementation(Libs.koinAndroid)
+    implementation(Libs.koinCompose)
 
     // Coroutine
     implementation(Libs.coroutines)
@@ -89,12 +82,7 @@ dependencies {
     implementation(Libs.composeMaterial)
     implementation(Libs.composeUi)
     implementation(Libs.composeToolingPreview)
-//    implementation("androidx.compose.ui:ui:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.material:material:${rootProject.extra["compose_version"]}")
-    implementation("androidx.compose.ui:ui-tooling-preview:${rootProject.extra["compose_version"]}")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1")
-    implementation("androidx.activity:activity-compose:1.3.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:${rootProject.extra["compose_version"]}")
+    implementation(Libs.activityCompose)
     debugImplementation(Libs.composeTooling)
 
     // Room
