@@ -6,7 +6,7 @@ plugins {
     id(Plugins.kotlinKapt)
     id(Plugins.navigationSafeArgs)
     id(Plugins.koin)
-    id("name.remal.check-dependency-updates") version "1.5.0"
+    id(Plugins.checkDependencyUpdates) version Versions.checkDependencyUpdates
 }
 
 android {
@@ -88,7 +88,6 @@ dependencies {
     // Room
     implementation(Libs.roomRuntime)
     implementation(Libs.roomKtx)
-    debugImplementation("androidx.compose.ui:ui-tooling:${rootProject.extra["compose_version"]}")
     kapt(Libs.roomCompiler)
 
     // Retrofit
