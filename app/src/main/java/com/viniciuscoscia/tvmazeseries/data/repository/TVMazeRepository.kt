@@ -9,7 +9,9 @@ import com.viniciuscoscia.tvmazeseries.data.helper.Outcome
 import com.viniciuscoscia.tvmazeseries.data.helper.parseResponse
 import com.viniciuscoscia.tvmazeseries.data.remote.api.TVMazeAPI
 import com.viniciuscoscia.tvmazeseries.data.remote.datasource.TVMazeSeriesPagingSource
+import com.viniciuscoscia.tvmazeseries.data.remote.entity.episodes.toDomain
 import com.viniciuscoscia.tvmazeseries.data.remote.entity.show.toDomain
+import com.viniciuscoscia.tvmazeseries.domain.model.SeasonModel
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import kotlinx.coroutines.flow.Flow
 
@@ -24,7 +26,7 @@ class TVMazeRepositoryImpl(
     }
 
     @Throws(NetworkException::class)
-    override suspend fun getShowDetails(showId: String): TVShowModel {
+    override suspend fun getShowDetails(showId: Int): TVShowModel {
         return when (val outcome = tvMazeApi.getTvShowDetails(showId).parseResponse()) {
             is Outcome.Success -> outcome.value.toDomain()
             is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
@@ -32,7 +34,7 @@ class TVMazeRepositoryImpl(
     }
 
     @Throws(NetworkException::class)
-    override suspend fun getShowEpisodeList(showId: String): TVShowModel {
+    override suspend fun getShowEpisodeList(showId: Int): List<SeasonModel> {
         return when (val outcome = tvMazeApi.getTvShowEpisodes(showId).parseResponse()) {
             is Outcome.Success -> outcome.value.toDomain()
             is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
@@ -42,6 +44,6 @@ class TVMazeRepositoryImpl(
 
 interface TVMazeRepository {
     fun getShowsByPageNumber(): Flow<PagingData<TVShowModel>>
-    suspend fun getShowDetails(showId: String): TVShowModel
-    suspend fun getShowEpisodeList(showId: String): TVShowModel
+    suspend fun getShowDetails(showId: Int): TVShowModel
+    suspend fun getShowEpisodeList(showId: Int): List<SeasonModel>
 }

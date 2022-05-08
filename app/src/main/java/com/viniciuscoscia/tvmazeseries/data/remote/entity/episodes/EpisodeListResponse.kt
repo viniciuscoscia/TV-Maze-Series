@@ -3,6 +3,8 @@ package com.viniciuscoscia.tvmazeseries.data.remote.entity.episodes
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import com.viniciuscoscia.tvmazeseries.domain.model.EpisodeModel
+import com.viniciuscoscia.tvmazeseries.domain.model.SeasonModel
 
 @JsonClass(generateAdapter = true)
 data class EpisodeListResponseItem(
@@ -10,7 +12,7 @@ data class EpisodeListResponseItem(
     val airstamp: String,
     val airtime: String,
     val id: Int,
-    val image: Image,
+    val image: Image?,
     @Json(name = "_links")
     val links: Links,
     val name: String,
@@ -24,8 +26,8 @@ data class EpisodeListResponseItem(
 ) {
     @JsonClass(generateAdapter = true)
     data class Image(
-        val medium: String,
-        val original: String
+        val medium: String?,
+        val original: String?
     )
 
     @JsonClass(generateAdapter = true)
@@ -42,4 +44,24 @@ data class EpisodeListResponseItem(
     data class Rating(
         val average: Any?
     )
+}
+
+
+fun EpisodeListResponseItem.toDomain() = EpisodeModel(
+    episodeId = id,
+    episodeName = name,
+    image = image?.original
+)
+
+fun List<EpisodeListResponseItem>.toDomain(): List<SeasonModel> {
+    val seasons = arrayListOf<SeasonModel>()
+
+    map { it.season }
+        .distinct()
+        .forEach { season ->
+            val episodes = filter { it.season == season }.map { it.toDomain() }
+            seasons.add(SeasonModel(season, episodes))
+        }
+
+    return seasons
 }

@@ -1,5 +1,6 @@
 package com.viniciuscoscia.tvmazeseries.data.remote.api
 
+import com.viniciuscoscia.tvmazeseries.data.remote.entity.episodes.EpisodeListResponseItem
 import com.viniciuscoscia.tvmazeseries.data.remote.entity.show.TVShowResponseModel
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,7 +16,7 @@ interface TVMazeAPI {
         @Path(
             value = SHOW_ID,
             encoded = true
-        ) showId: String
+        ) showId: Int
     ): Response<TVShowResponseModel>
 
     @GET("$BASE_SHOWS_ENDPOINT/{$SHOW_ID}/episodes")
@@ -23,8 +24,8 @@ interface TVMazeAPI {
         @Path(
             value = SHOW_ID,
             encoded = true
-        ) showId: String
-    ): Response<TVShowResponseModel>
+        ) showId: Int
+    ): Response<List<EpisodeListResponseItem>>
 
     companion object {
         private const val BASE_SHOWS_ENDPOINT = "shows"
