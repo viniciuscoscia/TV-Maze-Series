@@ -80,6 +80,7 @@ object Libs {
 }
 
 object Plugins {
+    const val parcelize = "kotlin-parcelize"
     const val androidApplication = "com.android.application"
     const val kotlinAndroid = "kotlin-android"
     const val kotlinKapt = "kotlin-kapt"

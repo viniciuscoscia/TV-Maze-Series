@@ -5,6 +5,7 @@ plugins {
     id(Plugins.navigationSafeArgs)
     id(Plugins.koin)
     id(Plugins.checkDependencyUpdates) version Versions.checkDependencyUpdates
+    id(Plugins.parcelize)
 }
 
 android {
