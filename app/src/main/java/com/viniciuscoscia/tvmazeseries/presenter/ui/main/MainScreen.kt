@@ -6,7 +6,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,18 +25,37 @@ import androidx.paging.compose.items
 import coil.compose.rememberAsyncImagePainter
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
-import org.koin.androidx.compose.inject
+import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun MainScreen(navController: NavController) {
-    Column(Modifier.fillMaxSize()) {
-        TVShowsList(navController)
+    Scaffold(topBar = {
+        TopAppBar(
+            title = {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = "TV Series List")
+                }
+            },
+            backgroundColor = MaterialTheme.colors.primary,
+            contentColor = Color.White,
+            elevation = 12.dp
+        )
+    }) {
+        Column(Modifier.fillMaxSize()) {
+            TVShowsList(navController)
+        }
     }
 }
 
 @Composable
-private fun TVShowsList(navController: NavController) {
-    val viewModel: MainViewModel by inject()
+private fun TVShowsList(
+    navController: NavController,
+    viewModel: MainViewModel = getViewModel()
+) {
     val shows: LazyPagingItems<TVShowModel> = viewModel.getTvShows().collectAsLazyPagingItems()
     val listState = rememberLazyListState()
 

@@ -25,13 +25,13 @@ fun NavigationComponent() {
         composable(route = Screen.TVShowDetailsScreen.route + "/{$tvShowId}",
             arguments = listOf(
                 navArgument(tvShowId) {
-                    type = NavType.StringType
-                    defaultValue = ""
+                    type = NavType.IntType
+                    defaultValue = 0
                     nullable = false
                 }
             )
         ) { entry ->
-            TVShowDetailsScreen(navController, entry.arguments!!.getString(tvShowId, ""))
+            TVShowDetailsScreen(navController, entry.arguments!!.getInt(tvShowId, 0))
         }
     }
 }

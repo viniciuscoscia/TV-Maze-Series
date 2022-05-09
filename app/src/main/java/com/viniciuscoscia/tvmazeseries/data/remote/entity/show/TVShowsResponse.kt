@@ -24,7 +24,7 @@ data class TVShowResponseModel(
     val runtime: Int?,
     val schedule: Schedule,
     val status: String,
-    val summary: String,
+    val summary: String?,
     val type: String,
     val updated: Int,
     val url: String,

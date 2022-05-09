@@ -19,17 +19,9 @@ class TVShowDetailsViewModel : KoinViewModel() {
         private set
 
     fun fetchInfo(showId: Int) = viewModelScope.launch {
-        val showDetails = fetchShowDetailsAsync(showId)
-        val showEpisodes = fetchShowEpisodeListAsync(showId)
+        val showDetails = async { fetchShowDetailsUseCase(showId) }
+        val showEpisodes = async { fetchShowEpisodeListUseCase(showId) }
 
         episodeDetails = ShowDetailsUiState(showDetails.await(), showEpisodes.await(), false)
-    }
-
-    private fun fetchShowDetailsAsync(showId: Int) = viewModelScope.async {
-        fetchShowDetailsUseCase(showId)
-    }
-
-    private fun fetchShowEpisodeListAsync(showId: Int) = viewModelScope.async {
-        fetchShowEpisodeListUseCase(showId)
     }
 }
