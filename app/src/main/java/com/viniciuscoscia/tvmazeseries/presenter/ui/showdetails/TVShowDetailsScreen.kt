@@ -5,11 +5,15 @@ package com.viniciuscoscia.tvmazeseries.presenter.ui.showdetails
 import android.widget.TextView
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +35,8 @@ import com.viniciuscoscia.tvmazeseries.domain.model.EpisodeModel
 import com.viniciuscoscia.tvmazeseries.domain.model.SeasonModel
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.ui.component.ExpandableCard
+import com.viniciuscoscia.tvmazeseries.presenter.ui.component.TVMazeSimpleFieldText
+import com.viniciuscoscia.tvmazeseries.presenter.ui.component.TVMazeTitle
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -143,21 +149,15 @@ fun ShowDetailsBox(tvShowModel: TVShowModel) {
 @Composable
 fun ShowGenres(genres: List<String>) {
     Row {
-        Text(
-            stringResource(id = R.string.genres),
-            color = Color.Black,
-            style = MaterialTheme.typography.body1
-        )
+        TVMazeSimpleFieldText(stringResource(id = R.string.genres))
         Spacer(modifier = Modifier.width(2.dp))
         genres.forEachIndexed { index, text ->
-            Text(
+            TVMazeSimpleFieldText(
                 text = if (index < genres.size - 1) {
                     "$text, "
                 } else {
                     text
-                },
-                color = Color.Black,
-                style = MaterialTheme.typography.body1
+                }
             )
         }
     }
@@ -182,14 +182,9 @@ private fun ShowImage(imageUrl: String) {
 
 @Composable
 private fun ShowName(tvShowModel: TVShowModel) {
-    Text(
+    TVMazeTitle(
         text = tvShowModel.name,
-        textAlign = TextAlign.Center,
-        color = Color.Black,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(all = 8.dp),
-        style = MaterialTheme.typography.h5
+        textAlign = TextAlign.Center
     )
 }
 
@@ -209,19 +204,9 @@ fun Summary(summary: String) {
 @Composable
 fun ShowField(fieldName: String, fieldValue: String?) {
     Row(horizontalArrangement = Arrangement.Center) {
-        Text(
-            text = "$fieldName:",
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.body1
-        )
+        TVMazeSimpleFieldText(text = "$fieldName:")
         Spacer(modifier = Modifier.width(2.dp))
-        Text(
-            text = fieldValue ?: stringResource(id = R.string.unknown),
-            color = Color.Black,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.body1
-        )
+        TVMazeSimpleFieldText(text = fieldValue ?: stringResource(id = R.string.unknown))
     }
 }
 
@@ -232,13 +217,9 @@ fun ShowSeasons(seasons: List<SeasonModel>) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(
+        TVMazeTitle(
             text = stringResource(id = R.string.seasons),
-            textAlign = TextAlign.Center,
-            color = Color.White,
-            modifier = Modifier
-                .fillMaxWidth(),
-            style = MaterialTheme.typography.h5
+            textColor = Color.White,
         )
 
         seasons.forEach { season ->
@@ -247,21 +228,8 @@ fun ShowSeasons(seasons: List<SeasonModel>) {
                     stringResource(
                         id = R.string.total_episodes
                     )
-                } ${season.episodes.size}",
-
-                ) {
-//                Text(
-//                    text = "${stringResource(id = R.string.season)} ${season.seasonNumber}",
-//                    textAlign = TextAlign.Center,
-//                    color = Color.White,
-//                    style = MaterialTheme.typography.h5
-//                )
-//                Text(
-//                    text = "${stringResource(id = R.string.total_episodes)} ${season.episodes.size}",
-//                    textAlign = TextAlign.Center,
-//                    color = Color.White,
-//                    style = MaterialTheme.typography.h6
-//                )
+                } ${season.episodes.size}"
+            ) {
                 Episodes(season.episodes)
             }
         }
@@ -273,13 +241,56 @@ fun Episodes(episodes: List<EpisodeModel>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(0.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(Color.White)
-            .padding(8.dp)
     ) {
         episodes.forEach {
+            Episode(it)
+        }
+    }
+}
 
+@Composable
+fun Episode(episodeModel: EpisodeModel) {
+    Column(
+        modifier = Modifier
+            .padding(vertical = 4.dp)
+            .border(1.dp, Color.Black, RoundedCornerShape(CornerSize(4.dp)))
+            .fillMaxWidth()
+    ) {
+        EpisodeImage(episodeModel)
+        TVMazeSimpleFieldText(
+            text = "${episodeModel.number} - ${episodeModel.name}",
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+private fun EpisodeImage(episodeModel: EpisodeModel) {
+    SubcomposeAsyncImage(
+        model = episodeModel.image,
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(4.dp)),
+        contentDescription = stringResource(R.string.poster_description)
+    ) {
+        when (painter.state) {
+            is AsyncImagePainter.State.Loading -> {
+                CircularProgressIndicator(modifier = Modifier.size(60.dp))
+            }
+            is AsyncImagePainter.State.Error -> {
+                Icon(
+                    modifier = Modifier.size(60.dp),
+                    contentDescription = "No Image",
+                    imageVector = Icons.Filled.Warning,
+                    tint = Color.Black
+                )
+            }
+            else -> {
+                SubcomposeAsyncImageContent(modifier = Modifier.fillMaxWidth())
+            }
         }
     }
 }
