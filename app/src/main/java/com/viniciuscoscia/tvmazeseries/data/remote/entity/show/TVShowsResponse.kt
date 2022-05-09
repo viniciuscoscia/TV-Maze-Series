@@ -7,7 +7,6 @@ import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 @JsonClass(generateAdapter = true)
 data class TVShowResponseModel(
     val averageRuntime: Int?,
-    val dvdCountry: Any?,
     val ended: String?,
     val externals: Externals,
     val genres: List<String>,
@@ -100,7 +99,11 @@ fun TVShowResponseModel.toDomain(): TVShowModel {
         id = id,
         name = name,
         imageSmallUrl = image?.medium ?: "",
-        imageUrl = image?.original ?: ""
+        imageUrl = image?.original ?: "",
+        premiered = premiered,
+        ended = ended,
+        genres = genres,
+        summary = summary
     )
 }
 

@@ -6,8 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.NavigationComponent
-import com.viniciuscoscia.tvmazeseries.presenter.theme.TVMazeSeriesTheme
+import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.TVMazeSeriesTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    NavigationComponent()
+                    val navController = rememberNavController()
+                    NavigationComponent(navController)
                 }
             }
         }

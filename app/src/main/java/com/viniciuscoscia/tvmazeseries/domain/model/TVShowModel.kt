@@ -8,5 +8,9 @@ data class TVShowModel(
     val id: Int,
     val name: String,
     val imageSmallUrl: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val premiered: String?,
+    val ended: String?,
+    val genres: List<String>,
+    val summary: String?
 ) : Parcelable

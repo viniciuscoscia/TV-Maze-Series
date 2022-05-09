@@ -32,6 +32,9 @@ class TVMazeSeriesPagingSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, TVShowModel>): Int? {
-        return state.anchorPosition
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
+        }
     }
 }

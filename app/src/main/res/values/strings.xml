@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">TV Maze Series</string>
     <string name="title_activity_main2">MainActivity2</string>
+    <string name="poster_description">Show Poster</string>
+    <string name="loading_details">Loading Details</string>
+    <string name="show_details">Show Details</string>
+    <string name="tv_series_list">TV Series List</string>
+    <string name="premiered">Premiered</string>
+    <string name="ended">Ended</string>
+    <string name="unknown">Unknown</string>
+    <string name="genres">Genres:</string>
+    <string name="season">Season</string>
+    <string name="total_episodes">"Episodes:"</string>
+    <string name="seasons">Seasons</string>
 </resources>

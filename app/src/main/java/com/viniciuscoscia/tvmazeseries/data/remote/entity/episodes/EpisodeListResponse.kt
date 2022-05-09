@@ -46,11 +46,13 @@ data class EpisodeListResponseItem(
     )
 }
 
-
 fun EpisodeListResponseItem.toDomain() = EpisodeModel(
-    episodeId = id,
-    episodeName = name,
-    image = image?.original
+    id = id,
+    name = name,
+    season = season,
+    image = image?.original,
+    number = number,
+    summary = summary
 )
 
 fun List<EpisodeListResponseItem>.toDomain(): List<SeasonModel> {
