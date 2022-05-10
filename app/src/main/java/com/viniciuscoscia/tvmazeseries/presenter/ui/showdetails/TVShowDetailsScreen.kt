@@ -4,13 +4,10 @@ package com.viniciuscoscia.tvmazeseries.presenter.ui.showdetails
 
 import android.widget.TextView
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Warning
@@ -21,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -149,7 +147,10 @@ fun ShowDetailsBox(tvShowModel: TVShowModel) {
 @Composable
 fun ShowGenres(genres: List<String>) {
     Row {
-        TVMazeSimpleFieldText(stringResource(id = R.string.genres))
+        TVMazeSimpleFieldText(
+            stringResource(id = R.string.genres),
+            fontWeight = FontWeight.ExtraBold
+        )
         Spacer(modifier = Modifier.width(2.dp))
         genres.forEachIndexed { index, text ->
             TVMazeSimpleFieldText(
@@ -168,7 +169,7 @@ private fun ShowImage(imageUrl: String) {
     SubcomposeAsyncImage(
         model = imageUrl,
         contentScale = ContentScale.Fit,
-        modifier = Modifier.width(250.dp),
+        modifier = Modifier.height(350.dp),
         contentDescription = stringResource(R.string.poster_description)
     ) {
         val state = painter.state
@@ -204,7 +205,7 @@ fun Summary(summary: String) {
 @Composable
 fun ShowField(fieldName: String, fieldValue: String?) {
     Row(horizontalArrangement = Arrangement.Center) {
-        TVMazeSimpleFieldText(text = "$fieldName:")
+        TVMazeSimpleFieldText(text = "$fieldName:", fontWeight = FontWeight.ExtraBold)
         Spacer(modifier = Modifier.width(2.dp))
         TVMazeSimpleFieldText(text = fieldValue ?: stringResource(id = R.string.unknown))
     }
@@ -257,39 +258,50 @@ fun Episode(episodeModel: EpisodeModel) {
             .padding(vertical = 4.dp)
             .border(1.dp, Color.Black, RoundedCornerShape(CornerSize(4.dp)))
             .fillMaxWidth()
+            .clickable {
+
+            }
     ) {
         EpisodeImage(episodeModel)
         TVMazeSimpleFieldText(
             text = "${episodeModel.number} - ${episodeModel.name}",
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            fontWeight = FontWeight.Bold
         )
     }
 }
 
 @Composable
 private fun EpisodeImage(episodeModel: EpisodeModel) {
-    SubcomposeAsyncImage(
-        model = episodeModel.image,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp)),
-        contentDescription = stringResource(R.string.poster_description)
-    ) {
-        when (painter.state) {
-            is AsyncImagePainter.State.Loading -> {
-                CircularProgressIndicator(modifier = Modifier.size(60.dp))
-            }
-            is AsyncImagePainter.State.Error -> {
-                Icon(
-                    modifier = Modifier.size(60.dp),
-                    contentDescription = "No Image",
-                    imageVector = Icons.Filled.Warning,
-                    tint = Color.Black
-                )
-            }
-            else -> {
-                SubcomposeAsyncImageContent(modifier = Modifier.fillMaxWidth())
+    Row(modifier = Modifier.height(200.dp)) {
+        SubcomposeAsyncImage(
+            model = episodeModel.image,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(RoundedCornerShape(4.dp)),
+            contentDescription = stringResource(R.string.poster_description)
+        ) {
+            when (painter.state) {
+                is AsyncImagePainter.State.Loading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier.padding(
+                            horizontal = 120.dp,
+                            vertical = 40.dp
+                        )
+                    )
+                }
+                is AsyncImagePainter.State.Error -> {
+                    Icon(
+                        modifier = Modifier.size(60.dp),
+                        contentDescription = "No Image",
+                        imageVector = Icons.Filled.Warning,
+                        tint = Color.Black
+                    )
+                }
+                else -> {
+                    SubcomposeAsyncImageContent(modifier = Modifier.fillMaxWidth())
+                }
             }
         }
     }

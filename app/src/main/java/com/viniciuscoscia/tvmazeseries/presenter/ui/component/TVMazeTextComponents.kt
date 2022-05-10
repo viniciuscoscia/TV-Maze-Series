@@ -7,6 +7,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
@@ -15,13 +16,15 @@ fun TVMazeSimpleFieldText(
     text: String,
     modifier: Modifier = Modifier,
     textColor: Color = Color.Black,
-    textAlign: TextAlign = TextAlign.Center
+    textAlign: TextAlign = TextAlign.Center,
+    fontWeight: FontWeight = FontWeight.Medium
 ) {
     Text(
         modifier = modifier,
         text = text,
         color = textColor,
         textAlign = textAlign,
+        fontWeight = fontWeight,
         style = MaterialTheme.typography.body1
     )
 }
