@@ -38,6 +38,7 @@ fun TVMazeTitle(
         textAlign = textAlign,
         color = textColor,
         modifier = modifier,
+        fontWeight = FontWeight.Bold,
         style = MaterialTheme.typography.h5
     )
 }
