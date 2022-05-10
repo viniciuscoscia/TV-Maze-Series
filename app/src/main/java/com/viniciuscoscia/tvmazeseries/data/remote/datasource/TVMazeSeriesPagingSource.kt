@@ -3,7 +3,7 @@ package com.viniciuscoscia.tvmazeseries.data.remote.datasource
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.viniciuscoscia.tvmazeseries.data.remote.api.TVMazeAPI
-import com.viniciuscoscia.tvmazeseries.data.remote.entity.show.toDomain
+import com.viniciuscoscia.tvmazeseries.data.remote.entity.toDomain
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import retrofit2.HttpException
 import java.io.IOException

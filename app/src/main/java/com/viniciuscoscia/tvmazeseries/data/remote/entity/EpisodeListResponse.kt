@@ -1,4 +1,4 @@
-package com.viniciuscoscia.tvmazeseries.data.remote.entity.episodes
+package com.viniciuscoscia.tvmazeseries.data.remote.entity
 
 
 import com.squareup.moshi.Json

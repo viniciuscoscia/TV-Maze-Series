@@ -134,11 +134,15 @@ fun ShowDetailsBox(tvShowModel: TVShowModel) {
             fieldName = stringResource(id = R.string.premiered),
             fieldValue = tvShowModel.premiered
         )
+
         ShowField(
             fieldName = stringResource(id = R.string.ended),
             fieldValue = tvShowModel.ended
         )
-        ShowGenres(tvShowModel.genres)
+
+        tvShowModel.genres?.run {
+            ShowGenres(this)
+        }
     }
 }
 

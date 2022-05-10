@@ -1,7 +1,8 @@
 package com.viniciuscoscia.tvmazeseries.data.remote.api
 
-import com.viniciuscoscia.tvmazeseries.data.remote.entity.episodes.EpisodeResponseItem
-import com.viniciuscoscia.tvmazeseries.data.remote.entity.show.TVShowResponseModel
+import com.viniciuscoscia.tvmazeseries.data.remote.entity.EpisodeResponseItem
+import com.viniciuscoscia.tvmazeseries.data.remote.entity.ShowSearchResponseItem
+import com.viniciuscoscia.tvmazeseries.data.remote.entity.TVShowResponseModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -35,10 +36,20 @@ interface TVMazeAPI {
         ) episodeId: Int
     ): Response<EpisodeResponseItem>
 
+    @GET("$BASE_SEARCH/$BASE_SHOWS_ENDPOINT")
+    suspend fun searchShowsByName(
+        @Query(
+            value = SHOW_NAME_QUERY,
+            encoded = true
+        ) showName: String
+    ): Response<List<ShowSearchResponseItem>>
+
     companion object {
         private const val BASE_SHOWS_ENDPOINT = "shows"
         private const val BASE_EPISODES_ENDPOINT = "episodes"
+        private const val BASE_SEARCH = "search"
         private const val SHOW_ID = "showId"
         private const val EPISODE_ID = "episodeId"
+        private const val SHOW_NAME_QUERY = "q"
     }
 }

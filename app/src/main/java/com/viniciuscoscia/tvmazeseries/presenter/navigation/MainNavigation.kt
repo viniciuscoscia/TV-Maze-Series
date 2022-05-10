@@ -8,9 +8,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.viniciuscoscia.tvmazeseries.presenter.ui.episodedetails.TVShowEpisodeDetailsScreen
 import com.viniciuscoscia.tvmazeseries.presenter.ui.main.MainScreen
+import com.viniciuscoscia.tvmazeseries.presenter.ui.searchscreen.TVShowSearchScreen
 import com.viniciuscoscia.tvmazeseries.presenter.ui.showdetails.TVShowDetailsScreen
 
-private const val tvShowId = "tv_show_id"
+private const val showIdArg = "showIdRoute"
+private const val episodeIdArg = "episodeIdArg"
+private const val showNameArg = "showNameArg"
 
 @Composable
 fun NavigationComponent(navController: NavHostController) {
@@ -23,29 +26,42 @@ fun NavigationComponent(navController: NavHostController) {
         }
 
         composable(
-            route = Screen.TVShowDetailsScreen.route + "/{$tvShowId}",
+            route = Screen.TVShowDetailsScreen.route + "/{$showIdArg}",
             arguments = listOf(
-                navArgument(tvShowId) {
+                navArgument(showIdArg) {
                     type = NavType.IntType
                     defaultValue = 0
                     nullable = false
                 }
             )
         ) { entry ->
-            TVShowDetailsScreen(navController, entry.arguments!!.getInt(tvShowId, 0))
+            TVShowDetailsScreen(navController, entry.arguments!!.getInt(showIdArg, 0))
         }
 
         composable(
-            route = Screen.TVShowEpisodeDetail.route + "/{$tvShowId}",
+            route = Screen.TVShowEpisodeDetail.route + "/{$episodeIdArg}",
             arguments = listOf(
-                navArgument(tvShowId) {
+                navArgument(episodeIdArg) {
                     type = NavType.IntType
                     defaultValue = 0
                     nullable = false
                 }
             )
         ) { entry ->
-            TVShowEpisodeDetailsScreen(entry.arguments!!.getInt(tvShowId, 0))
+            TVShowEpisodeDetailsScreen(entry.arguments!!.getInt(episodeIdArg, 0))
+        }
+
+        composable(
+            route = Screen.TVShowSearch.route + "/{$showNameArg}",
+            arguments = listOf(
+                navArgument(showNameArg) {
+                    type = NavType.StringType
+                    defaultValue = ""
+                    nullable = false
+                }
+            )
+        ) { entry ->
+            TVShowSearchScreen(navController, entry.arguments!!.getString(showNameArg, ""))
         }
     }
 }
@@ -54,4 +70,5 @@ sealed class Screen(val route: String) {
     object MainScreen : Screen("main_screen")
     object TVShowDetailsScreen : Screen("tv_show_details_screen")
     object TVShowEpisodeDetail : Screen("tv_show_episode_detail")
+    object TVShowSearch : Screen("tv_show_search")
 }

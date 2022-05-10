@@ -8,8 +8,7 @@ import com.viniciuscoscia.tvmazeseries.data.helper.Outcome
 import com.viniciuscoscia.tvmazeseries.data.helper.parseResponse
 import com.viniciuscoscia.tvmazeseries.data.remote.api.TVMazeAPI
 import com.viniciuscoscia.tvmazeseries.data.remote.datasource.TVMazeSeriesPagingSource
-import com.viniciuscoscia.tvmazeseries.data.remote.entity.episodes.toDomain
-import com.viniciuscoscia.tvmazeseries.data.remote.entity.show.toDomain
+import com.viniciuscoscia.tvmazeseries.data.remote.entity.toDomain
 import com.viniciuscoscia.tvmazeseries.domain.model.EpisodeModel
 import com.viniciuscoscia.tvmazeseries.domain.model.SeasonModel
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
@@ -48,6 +47,13 @@ class TVMazeRepositoryImpl(
             is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
         }
     }
+
+    override suspend fun searchShowByNameUseCase(showName: String): List<TVShowModel> {
+        return when (val outcome = tvMazeApi.searchShowsByName(showName).parseResponse()) {
+            is Outcome.Success -> outcome.value.toDomain()
+            is Outcome.Failure -> throw NetworkException.parse(outcome.statusCode)
+        }
+    }
 }
 
 interface TVMazeRepository {
@@ -55,4 +61,5 @@ interface TVMazeRepository {
     suspend fun getShowDetails(showId: Int): TVShowModel
     suspend fun getShowEpisodeList(showId: Int): List<SeasonModel>
     suspend fun getEpisodeDetails(episodeId: Int): EpisodeModel
+    suspend fun searchShowByNameUseCase(showName: String): List<TVShowModel>
 }

@@ -14,4 +14,5 @@
     <string name="seasons">Seasons</string>
     <string name="episode_details">Episode Details</string>
     <string name="search_show">Search for Show</string>
+    <string name="search_for">Searching for \"%1$s\"</string>
 </resources>

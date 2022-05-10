@@ -1,9 +1,6 @@
 package com.viniciuscoscia.tvmazeseries.domain.di
 
-import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchEpisodeInfoUseCase
-import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowDetailsUseCase
-import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowEpisodeListUseCase
-import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowsByPageUseCase
+import com.viniciuscoscia.tvmazeseries.domain.usecase.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -21,5 +18,9 @@ val domainModule = module {
 
     factory {
         FetchEpisodeInfoUseCase(repository = get())
+    }
+
+    factory {
+        SearchShowByNameUseCase(repository = get())
     }
 }
