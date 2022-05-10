@@ -2,7 +2,6 @@ package com.viniciuscoscia.tvmazeseries.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingConfig.Companion.MAX_SIZE_UNBOUNDED
 import androidx.paging.PagingData
 import com.viniciuscoscia.tvmazeseries.data.helper.NetworkException
 import com.viniciuscoscia.tvmazeseries.data.helper.Outcome
@@ -21,7 +20,7 @@ class TVMazeRepositoryImpl(
 ) : TVMazeRepository {
     override fun getShowsByPageNumber(): Flow<PagingData<TVShowModel>> {
         return Pager(
-            config = PagingConfig(pageSize = 20, maxSize = MAX_SIZE_UNBOUNDED),
+            config = PagingConfig(pageSize = 20),
             pagingSourceFactory = { TVMazeSeriesPagingSource(tvMazeApi) }
         ).flow
     }

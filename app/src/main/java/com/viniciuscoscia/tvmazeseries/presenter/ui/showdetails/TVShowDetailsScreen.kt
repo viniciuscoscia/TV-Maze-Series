@@ -121,7 +121,7 @@ fun ShowDetailsBox(tvShowModel: TVShowModel) {
             .padding(16.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(Color.White)
-            .padding(8.dp),
+            .padding(vertical = 16.dp, horizontal = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ShowName(tvShowModel)
@@ -190,7 +190,7 @@ private fun ShowName(tvShowModel: TVShowModel) {
 @Composable
 fun Summary(summary: String) {
     AndroidView(
-        modifier = Modifier.padding(horizontal = 8.dp),
+        modifier = Modifier.padding(top = 8.dp, start = 8.dp, end = 8.dp),
         factory = { context ->
             TextView(context).also {
                 it.setTextColor(ContextCompat.getColor(context, R.color.black))
@@ -222,6 +222,7 @@ fun ShowSeasons(seasons: List<SeasonModel>, navController: NavController) {
         )
 
         seasons.forEach { season ->
+            Spacer(modifier = Modifier.height(4.dp))
             ExpandableCard(
                 title = "${stringResource(id = R.string.season)} ${season.seasonNumber} - ${
                     stringResource(

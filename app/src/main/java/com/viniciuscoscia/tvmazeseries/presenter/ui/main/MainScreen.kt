@@ -1,12 +1,17 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.viniciuscoscia.tvmazeseries.presenter.ui.main
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,19 +22,22 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
+import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.compose.getViewModel
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewModel()) {
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -47,7 +55,7 @@ fun MainScreen(navController: NavController) {
         )
     }) {
         Column(Modifier.fillMaxSize()) {
-            TVShowsList(navController)
+            TVShowsList(navController, viewModel.getTvShows())
         }
     }
 }
@@ -55,40 +63,41 @@ fun MainScreen(navController: NavController) {
 @Composable
 private fun TVShowsList(
     navController: NavController,
-    viewModel: MainViewModel = getViewModel()
+    tvShows: Flow<PagingData<TVShowModel>>
 ) {
-    val shows: LazyPagingItems<TVShowModel> = viewModel.getTvShows().collectAsLazyPagingItems()
-    val listState = rememberLazyListState()
+    val cellState by remember { mutableStateOf(2) }
+    val shows: LazyPagingItems<TVShowModel> = tvShows.collectAsLazyPagingItems()
 
-    LazyColumn(
-        state = listState
-    ) {
-        items(shows) { show ->
-            show?.run {
-                TVShowCard(show, navController)
+    LazyVerticalGrid(
+        cells = GridCells.Fixed(cellState),
+        content = {
+            items(shows.itemCount) { index ->
+                val show = shows[index] ?: return@items
+                TVShowCard(show = show, navController = navController)
             }
+            renderLoading(shows.loadState)
         }
-    }
+    )
 }
 
 @Composable
 fun TVShowCard(show: TVShowModel, navController: NavController) {
-    Row(
+    Column(
         Modifier
             .padding(2.dp)
             .background(Color.White)
-            .padding(8.dp)
-            .fillMaxWidth()
-            .height(height = 200.dp)
+            .height(cardHeight)
             .clickable {
                 navController.navigate(Screen.TVShowDetailsScreen.route + "/${show.id}")
             },
-        verticalAlignment = Alignment.CenterVertically
     ) {
         SubcomposeAsyncImage(
             model = show.imageSmallUrl,
-            contentScale = ContentScale.Fit,
-            modifier = Modifier.fillMaxHeight(),
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(2.dp)
+                .height(height = 250.dp),
             contentDescription = stringResource(R.string.poster_description)
         ) {
             val state = painter.state
@@ -98,10 +107,10 @@ fun TVShowCard(show: TVShowModel, navController: NavController) {
                 SubcomposeAsyncImageContent()
             }
         }
-        Column(
+        Row(
             modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
         ) {
             Text(
                 textAlign = TextAlign.Center,
@@ -111,5 +120,31 @@ fun TVShowCard(show: TVShowModel, navController: NavController) {
                 fontWeight = FontWeight.Bold
             )
         }
+    }
+}
+
+private const val CELL_COUNT = 2
+private val span: (LazyGridItemSpanScope) -> GridItemSpan = { GridItemSpan(CELL_COUNT) }
+private val cardHeight = 300.dp
+fun LazyGridScope.renderLoading(loadState: CombinedLoadStates) {
+    if (loadState.append is LoadState.Loading) {
+        item(span = span) {
+            LoadingColumn(modifier = Modifier.height(cardHeight))
+        }
+    } else if (loadState.refresh is LoadState.Loading) {
+        item(span = span) {
+            LoadingColumn(modifier = Modifier.fillParentMaxSize())
+        }
+    }
+}
+
+@Composable
+private fun LoadingColumn(modifier: Modifier) {
+    Column(
+        modifier = modifier,
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        CircularProgressIndicator()
     }
 }

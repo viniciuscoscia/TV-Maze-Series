@@ -1,7 +1,5 @@
 package com.viniciuscoscia.tvmazeseries.presenter.ui.component
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -9,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun TVMazeSimpleFieldText(
@@ -32,6 +29,7 @@ fun TVMazeSimpleFieldText(
 @Composable
 fun TVMazeTitle(
     text: String,
+    modifier: Modifier = Modifier,
     textColor: Color = Color.Black,
     textAlign: TextAlign = TextAlign.Center
 ) {
@@ -39,9 +37,7 @@ fun TVMazeTitle(
         text = text,
         textAlign = textAlign,
         color = textColor,
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(all = 8.dp),
+        modifier = modifier,
         style = MaterialTheme.typography.h5
     )
 }

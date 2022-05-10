@@ -50,7 +50,6 @@ fun ExpandableCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .animateContentSize(
                 animationSpec = tween(
                     durationMillis = 300,
