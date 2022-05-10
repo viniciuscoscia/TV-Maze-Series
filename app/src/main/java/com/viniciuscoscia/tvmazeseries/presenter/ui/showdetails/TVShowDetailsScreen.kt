@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
+import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
@@ -32,9 +31,8 @@ import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.domain.model.EpisodeModel
 import com.viniciuscoscia.tvmazeseries.domain.model.SeasonModel
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.ExpandableCard
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.TVMazeSimpleFieldText
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.TVMazeTitle
+import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
+import com.viniciuscoscia.tvmazeseries.presenter.ui.component.*
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -48,11 +46,11 @@ fun TVShowDetailsScreen(
     }
 
     viewModel.fetchInfo(showId)
-    ShowDetailsBody(viewModel)
+    ShowDetailsBody(viewModel, navController)
 }
 
 @Composable
-private fun ShowDetailsBody(viewModel: TVShowDetailsViewModel) {
+private fun ShowDetailsBody(viewModel: TVShowDetailsViewModel, navController: NavController) {
     val episodeDetails = viewModel.episodeDetails
 
     Scaffold(
@@ -81,7 +79,7 @@ private fun ShowDetailsBody(viewModel: TVShowDetailsViewModel) {
                 .background(Color.Black)
         ) {
             if (episodeDetails.loading) {
-                ShowLoading()
+                TVMazeShowLoading()
             } else {
                 AnimatedVisibility(visible = episodeDetails.loading.not()) {
                     Column(
@@ -93,7 +91,7 @@ private fun ShowDetailsBody(viewModel: TVShowDetailsViewModel) {
                             ShowDetails(this)
                         }
                         episodeDetails.seasons?.run {
-                            ShowSeasons(this)
+                            ShowSeasons(this, navController)
                         }
                     }
                 }
@@ -109,7 +107,7 @@ fun ShowDetails(tvShowModel: TVShowModel) = with(tvShowModel) {
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ShowImage(tvShowModel.imageUrl)
+        BigImage(tvShowModel.imageUrl)
 
         ShowDetailsBox(tvShowModel)
     }
@@ -212,7 +210,7 @@ fun ShowField(fieldName: String, fieldValue: String?) {
 }
 
 @Composable
-fun ShowSeasons(seasons: List<SeasonModel>) {
+fun ShowSeasons(seasons: List<SeasonModel>, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -231,14 +229,14 @@ fun ShowSeasons(seasons: List<SeasonModel>) {
                     )
                 } ${season.episodes.size}"
             ) {
-                Episodes(season.episodes)
+                Episodes(season.episodes, navController)
             }
         }
     }
 }
 
 @Composable
-fun Episodes(episodes: List<EpisodeModel>) {
+fun Episodes(episodes: List<EpisodeModel>, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -246,20 +244,20 @@ fun Episodes(episodes: List<EpisodeModel>) {
             .background(Color.White)
     ) {
         episodes.forEach {
-            Episode(it)
+            Episode(it, navController)
         }
     }
 }
 
 @Composable
-fun Episode(episodeModel: EpisodeModel) {
+fun Episode(episodeModel: EpisodeModel, navController: NavController) {
     Column(
         modifier = Modifier
             .padding(vertical = 4.dp)
             .border(1.dp, Color.Black, RoundedCornerShape(CornerSize(4.dp)))
             .fillMaxWidth()
             .clickable {
-
+                navController.navigate(Screen.TVShowEpisodeDetail.route + "/${episodeModel.id}")
             }
     ) {
         EpisodeImage(episodeModel)
@@ -274,45 +272,12 @@ fun Episode(episodeModel: EpisodeModel) {
 @Composable
 private fun EpisodeImage(episodeModel: EpisodeModel) {
     Row(modifier = Modifier.height(200.dp)) {
-        SubcomposeAsyncImage(
-            model = episodeModel.image,
+        BigImage(
+            imageUrl = episodeModel.image,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(4.dp)),
-            contentDescription = stringResource(R.string.poster_description)
-        ) {
-            when (painter.state) {
-                is AsyncImagePainter.State.Loading -> {
-                    CircularProgressIndicator(
-                        modifier = Modifier.padding(
-                            horizontal = 120.dp,
-                            vertical = 40.dp
-                        )
-                    )
-                }
-                is AsyncImagePainter.State.Error -> {
-                    Icon(
-                        modifier = Modifier.size(60.dp),
-                        contentDescription = "No Image",
-                        imageVector = Icons.Filled.Warning,
-                        tint = Color.Black
-                    )
-                }
-                else -> {
-                    SubcomposeAsyncImageContent(modifier = Modifier.fillMaxWidth())
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun ShowLoading() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator()
+                .clip(RoundedCornerShape(4.dp))
+        )
     }
 }

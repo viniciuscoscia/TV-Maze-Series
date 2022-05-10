@@ -12,4 +12,5 @@
     <string name="season">Season</string>
     <string name="total_episodes">"Episodes:"</string>
     <string name="seasons">Seasons</string>
+    <string name="episode_details">Episode Details</string>
 </resources>

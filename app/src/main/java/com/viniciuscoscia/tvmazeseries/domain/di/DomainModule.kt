@@ -1,5 +1,6 @@
 package com.viniciuscoscia.tvmazeseries.domain.di
 
+import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchEpisodeInfoUseCase
 import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowDetailsUseCase
 import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowEpisodeListUseCase
 import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowsByPageUseCase
@@ -16,5 +17,9 @@ val domainModule = module {
 
     factory {
         FetchShowDetailsUseCase(repository = get())
+    }
+
+    factory {
+        FetchEpisodeInfoUseCase(repository = get())
     }
 }

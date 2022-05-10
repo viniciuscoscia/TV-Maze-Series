@@ -7,7 +7,7 @@ import com.viniciuscoscia.tvmazeseries.domain.model.EpisodeModel
 import com.viniciuscoscia.tvmazeseries.domain.model.SeasonModel
 
 @JsonClass(generateAdapter = true)
-data class EpisodeListResponseItem(
+data class EpisodeResponseItem(
     val airdate: String,
     val airstamp: String,
     val airtime: String,
@@ -46,7 +46,7 @@ data class EpisodeListResponseItem(
     )
 }
 
-fun EpisodeListResponseItem.toDomain() = EpisodeModel(
+fun EpisodeResponseItem.toDomain() = EpisodeModel(
     id = id,
     name = name,
     season = season,
@@ -55,7 +55,7 @@ fun EpisodeListResponseItem.toDomain() = EpisodeModel(
     summary = summary
 )
 
-fun List<EpisodeListResponseItem>.toDomain(): List<SeasonModel> {
+fun List<EpisodeResponseItem>.toDomain(): List<SeasonModel> {
     val seasons = arrayListOf<SeasonModel>()
 
     map { it.season }

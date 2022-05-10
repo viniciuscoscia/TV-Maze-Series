@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.viniciuscoscia.tvmazeseries.presenter.ui.episodedetails.TVShowEpisodeDetailsScreen
 import com.viniciuscoscia.tvmazeseries.presenter.ui.main.MainScreen
 import com.viniciuscoscia.tvmazeseries.presenter.ui.showdetails.TVShowDetailsScreen
 
@@ -33,10 +34,24 @@ fun NavigationComponent(navController: NavHostController) {
         ) { entry ->
             TVShowDetailsScreen(navController, entry.arguments!!.getInt(tvShowId, 0))
         }
+
+        composable(
+            route = Screen.TVShowEpisodeDetail.route + "/{$tvShowId}",
+            arguments = listOf(
+                navArgument(tvShowId) {
+                    type = NavType.IntType
+                    defaultValue = 0
+                    nullable = false
+                }
+            )
+        ) { entry ->
+            TVShowEpisodeDetailsScreen(entry.arguments!!.getInt(tvShowId, 0))
+        }
     }
 }
 
 sealed class Screen(val route: String) {
     object MainScreen : Screen("main_screen")
     object TVShowDetailsScreen : Screen("tv_show_details_screen")
+    object TVShowEpisodeDetail : Screen("tv_show_episode_detail")
 }
