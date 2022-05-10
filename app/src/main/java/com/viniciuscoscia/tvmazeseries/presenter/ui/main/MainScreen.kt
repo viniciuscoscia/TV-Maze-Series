@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,11 +34,14 @@ import coil.compose.SubcomposeAsyncImageContent
 import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
+import com.viniciuscoscia.tvmazeseries.presenter.ui.component.SearchView
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.compose.getViewModel
+import timber.log.Timber
 
 @Composable
 fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewModel()) {
+    val textState = remember { mutableStateOf(TextFieldValue("")) }
     Scaffold(topBar = {
         TopAppBar(
             title = {
@@ -46,7 +50,10 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewM
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(text = stringResource(id = R.string.tv_series_list))
+                    Text(text = stringResource(id = R.string.tv_series))
+                    SearchView(state = textState) {
+                        Timber.d("Search for $it")
+                    }
                 }
             },
             backgroundColor = MaterialTheme.colors.primary,
@@ -126,7 +133,8 @@ fun TVShowCard(show: TVShowModel, navController: NavController) {
 private const val CELL_COUNT = 2
 private val span: (LazyGridItemSpanScope) -> GridItemSpan = { GridItemSpan(CELL_COUNT) }
 private val cardHeight = 300.dp
-fun LazyGridScope.renderLoading(loadState: CombinedLoadStates) {
+
+private fun LazyGridScope.renderLoading(loadState: CombinedLoadStates) {
     if (loadState.append is LoadState.Loading) {
         item(span = span) {
             LoadingColumn(modifier = Modifier.height(cardHeight))
