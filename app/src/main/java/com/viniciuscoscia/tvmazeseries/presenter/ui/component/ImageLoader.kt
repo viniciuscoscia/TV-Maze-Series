@@ -14,7 +14,7 @@ import coil.compose.SubcomposeAsyncImageContent
 import com.viniciuscoscia.tvmazeseries.R
 
 @Composable
-fun BigImage(
+fun ImageLoader(
     imageUrl: String?,
     modifier: Modifier = Modifier.height(350.dp),
     contentScale: ContentScale = ContentScale.Fit

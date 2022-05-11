@@ -29,6 +29,7 @@ import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
 import com.viniciuscoscia.tvmazeseries.presenter.ui.component.*
+import com.viniciuscoscia.tvmazeseries.presenter.util.ObserveErrorState
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.compose.getViewModel
 import timber.log.Timber
@@ -57,6 +58,7 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewM
             elevation = 12.dp
         )
     }) {
+        viewModel.ObserveErrorState()
         Column(Modifier.fillMaxSize()) {
             TVShowsGrid(navController, viewModel.getTvShows())
         }
@@ -66,7 +68,8 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewM
 @Composable
 private fun TVShowsGrid(
     navController: NavController,
-    tvShows: Flow<PagingData<TVShowModel>>
+    tvShows: Flow<PagingData<TVShowModel>>,
+    viewModel: MainViewModel = getViewModel()
 ) {
     val cellState by remember { mutableStateOf(CELL_COUNT) }
     val shows: LazyPagingItems<TVShowModel> = tvShows.collectAsLazyPagingItems()
@@ -74,6 +77,10 @@ private fun TVShowsGrid(
     LazyVerticalGrid(
         cells = GridCells.Fixed(cellState),
         content = {
+            if (shows.loadState.refresh is LoadState.Error) {
+                viewModel.onPagingError()
+                return@LazyVerticalGrid
+            }
             items(shows.itemCount) { index ->
                 val show = shows[index] ?: return@items
                 TVShowCard(show = show, navController = navController)

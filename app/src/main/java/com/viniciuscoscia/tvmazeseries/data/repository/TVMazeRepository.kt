@@ -48,6 +48,7 @@ class TVMazeRepositoryImpl(
         }
     }
 
+    @Throws(NetworkException::class)
     override suspend fun searchShowByNameUseCase(showName: String): List<TVShowModel> {
         return when (val outcome = tvMazeApi.searchShowsByName(showName).parseResponse()) {
             is Outcome.Success -> outcome.value.toDomain()

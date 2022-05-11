@@ -63,7 +63,7 @@ fun TVShowEpisodeDetailsScreen(
                         ) {
                             val details = uiModel.episodeDetails
                             details.image?.run {
-                                BigImage(
+                                ImageLoader(
                                     imageUrl = details.image,
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -74,12 +74,14 @@ fun TVShowEpisodeDetailsScreen(
 
                             Column(
                                 modifier = Modifier
-                                    .padding(vertical = 4.dp)
+                                    .padding(vertical = 16.dp)
                                     .clip(RoundedCornerShape(12.dp))
                                     .background(Color.White)
                                     .padding(horizontal = 8.dp)
-                                    .fillMaxWidth()
+                                    .fillMaxWidth(),
+                                horizontalAlignment = Alignment.CenterHorizontally
                             ) {
+                                Spacer(modifier = Modifier.height(8.dp))
                                 TVMazeTitle(text = "${details.number} - ${details.name}")
                                 TVMazeSimpleFieldText(text = "${stringResource(id = R.string.season)} ${details.season}")
 

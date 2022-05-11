@@ -24,6 +24,7 @@ import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.presenter.ui.component.CELL_COUNT
 import com.viniciuscoscia.tvmazeseries.presenter.ui.component.TVMazeShowLoading
 import com.viniciuscoscia.tvmazeseries.presenter.ui.component.TVShowCard
+import com.viniciuscoscia.tvmazeseries.presenter.util.ObserveErrorState
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -49,6 +50,7 @@ fun TVShowSearchScreen(
         )
     }) {
         viewModel.searchForShowByName(showName)
+        viewModel.ObserveErrorState()
         Column(Modifier.fillMaxSize()) {
             val shows = viewModel.shows
             if (shows.value.isEmpty()) {

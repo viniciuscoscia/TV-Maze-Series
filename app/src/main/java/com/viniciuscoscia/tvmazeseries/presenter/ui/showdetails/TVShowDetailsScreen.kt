@@ -107,7 +107,7 @@ fun ShowDetails(tvShowModel: TVShowModel) = with(tvShowModel) {
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        BigImage(tvShowModel.imageUrl)
+        ImageLoader(tvShowModel.imageUrl)
 
         ShowDetailsBox(tvShowModel)
     }
@@ -277,7 +277,7 @@ fun Episode(episodeModel: EpisodeModel, navController: NavController) {
 @Composable
 private fun EpisodeImage(episodeModel: EpisodeModel) {
     Row(modifier = Modifier.height(200.dp)) {
-        BigImage(
+        ImageLoader(
             imageUrl = episodeModel.image,
             contentScale = ContentScale.Crop,
             modifier = Modifier

@@ -44,15 +44,6 @@ fun SearchView(state: MutableState<TextFieldValue>, onSearch: (String) -> Unit) 
         modifier = Modifier
             .fillMaxWidth(),
         textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
-//        leadingIcon = {
-//            Icon(
-//                Icons.Default.Search,
-//                contentDescription = "",
-//                modifier = Modifier
-//                    .padding(15.dp)
-//                    .size(24.dp)
-//            )
-//        },
         trailingIcon = {
             Icon(
                 Icons.Default.Search,
@@ -63,7 +54,7 @@ fun SearchView(state: MutableState<TextFieldValue>, onSearch: (String) -> Unit) 
             )
         },
         singleLine = true,
-        shape = RectangleShape, // The TextFiled has rounded corners top left and right by default
+        shape = RectangleShape,
         colors = TextFieldDefaults.textFieldColors(
             textColor = Color.White,
             cursorColor = Color.White,
