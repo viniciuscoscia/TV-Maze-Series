@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowDetailsUseCase
 import com.viniciuscoscia.tvmazeseries.domain.usecase.FetchShowEpisodeListUseCase
 import com.viniciuscoscia.tvmazeseries.presenter.util.BaseViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.koin.core.component.inject
 
@@ -20,10 +19,10 @@ class TVShowDetailsViewModel : BaseViewModel() {
 
     fun fetchInfo(showId: Int) = viewModelScope.launch {
         try {
-            val showDetails = async { fetchShowDetailsUseCase(showId) }
-            val showEpisodes = async { fetchShowEpisodeListUseCase(showId) }
+            val showDetails = fetchShowDetailsUseCase(showId)
+            val showEpisodes = fetchShowEpisodeListUseCase(showId)
 
-            episodeDetails = ShowDetailsUiState(showDetails.await(), showEpisodes.await(), false)
+            episodeDetails = ShowDetailsUiState(showDetails, showEpisodes, false)
         } catch (exception: Exception) {
             episodeDetails = ShowDetailsUiState(loading = false)
             showError("Error fetching show details")

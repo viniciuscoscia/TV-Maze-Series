@@ -5,7 +5,7 @@ import com.viniciuscoscia.tvmazeseries.data.repository.TVMazeRepository
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import kotlinx.coroutines.flow.Flow
 
-class FetchShowsByPageUseCase(private val repository: TVMazeRepository) {
+class FetchShowsUseCase(private val repository: TVMazeRepository) {
     operator fun invoke(): Flow<PagingData<TVShowModel>> {
         return repository.getShowsByPageNumber()
     }

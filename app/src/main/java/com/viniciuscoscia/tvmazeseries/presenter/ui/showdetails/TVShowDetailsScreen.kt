@@ -32,6 +32,7 @@ import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
 import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.*
 import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.Shapes
+import com.viniciuscoscia.tvmazeseries.presenter.util.ObserveErrorState
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -44,6 +45,7 @@ fun TVShowDetailsScreen(
         navController.popBackStack()
     }
 
+    viewModel.ObserveErrorState()
     viewModel.fetchInfo(showId)
     ShowDetailsBody(viewModel, navController)
 }

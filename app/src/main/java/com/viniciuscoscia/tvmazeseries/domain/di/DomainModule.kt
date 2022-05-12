@@ -5,7 +5,7 @@ import org.koin.dsl.module
 
 val domainModule = module {
     factory {
-        FetchShowsByPageUseCase(repository = get())
+        FetchShowsUseCase(repository = get())
     }
 
     factory {
