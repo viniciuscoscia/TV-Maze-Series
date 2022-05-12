@@ -1,13 +1,10 @@
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.viniciuscoscia.tvmazeseries.presenter.ui.component
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,7 +14,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
@@ -27,47 +23,55 @@ import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
 
 const val CELL_COUNT = 2
-val cardHeight = 300.dp
+val cardHeight = 325.dp
 
 @Composable
 fun TVShowCard(show: TVShowModel, navController: NavController) {
-    Column(
-        Modifier
-            .padding(2.dp)
-            .background(Color.White)
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
             .height(cardHeight)
-            .clickable {
-                navController.navigate(Screen.TVShowDetailsScreen.route + "/${show.id}")
-            },
+            .padding(2.dp),
+        elevation = 10.dp
     ) {
-        SubcomposeAsyncImage(
-            model = show.imageSmallUrl,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(2.dp)
-                .height(height = 250.dp),
-            contentDescription = stringResource(R.string.poster_description)
+        Column(
+            Modifier
+                .fillMaxHeight()
+                .background(Color.White)
+                .clickable {
+                    navController.navigate(Screen.TVShowDetailsScreen.route + "/${show.id}")
+                },
         ) {
-            val state = painter.state
-            if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                CircularProgressIndicator(modifier = Modifier.padding(50.dp))
-            } else {
-                SubcomposeAsyncImageContent()
+            SubcomposeAsyncImage(
+                model = show.imageSmallUrl,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(2.dp)
+                    .height(height = 260.dp),
+                contentDescription = stringResource(R.string.poster_description)
+            ) {
+                val state = painter.state
+                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
+                    CircularProgressIndicator(modifier = Modifier.padding(50.dp))
+                } else {
+                    SubcomposeAsyncImageContent()
+                }
             }
-        }
-        Row(
-            modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                textAlign = TextAlign.Center,
-                text = show.name,
-                color = Color.Black,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
-            )
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                TVMazeSimpleFieldText(
+                    modifier = Modifier.padding(4.dp),
+                    textAlign = TextAlign.Center,
+                    text = show.name,
+                    textColor = Color.Black,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 2
+                )
+            }
         }
     }
 }

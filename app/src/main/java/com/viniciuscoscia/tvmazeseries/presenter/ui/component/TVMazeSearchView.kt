@@ -29,7 +29,11 @@ import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.primaryColor
 
 @Composable
-fun SearchView(state: MutableState<TextFieldValue>, onSearch: (String) -> Unit) {
+fun SearchView(
+    state: MutableState<TextFieldValue>,
+    textColor: Color = Color.White,
+    onSearch: (String) -> Unit
+) {
     TextField(
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
         keyboardActions = KeyboardActions(
@@ -43,7 +47,7 @@ fun SearchView(state: MutableState<TextFieldValue>, onSearch: (String) -> Unit) 
         },
         modifier = Modifier
             .fillMaxWidth(),
-        textStyle = TextStyle(color = Color.White, fontSize = 18.sp),
+        textStyle = TextStyle(color = textColor, fontSize = 18.sp),
         trailingIcon = {
             Icon(
                 Icons.Default.Search,
@@ -56,7 +60,7 @@ fun SearchView(state: MutableState<TextFieldValue>, onSearch: (String) -> Unit) 
         singleLine = true,
         shape = RectangleShape,
         colors = TextFieldDefaults.textFieldColors(
-            textColor = Color.White,
+            textColor = textColor,
             cursorColor = Color.White,
             leadingIconColor = Color.White,
             trailingIconColor = Color.White,
@@ -65,7 +69,12 @@ fun SearchView(state: MutableState<TextFieldValue>, onSearch: (String) -> Unit) 
             unfocusedIndicatorColor = Color.Transparent,
             disabledIndicatorColor = Color.Transparent,
         ),
-        placeholder = { Text(text = stringResource(id = R.string.search_show)) }
+        placeholder = {
+            Text(
+                text = stringResource(id = R.string.search_show),
+                color = textColor
+            )
+        }
     )
 }
 

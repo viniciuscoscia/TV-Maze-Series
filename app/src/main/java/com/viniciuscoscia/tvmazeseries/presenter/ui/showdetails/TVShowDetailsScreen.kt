@@ -6,8 +6,6 @@ import android.widget.TextView
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CornerSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,15 +22,13 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import coil.compose.AsyncImagePainter
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
 import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.domain.model.EpisodeModel
 import com.viniciuscoscia.tvmazeseries.domain.model.SeasonModel
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
 import com.viniciuscoscia.tvmazeseries.presenter.ui.component.*
+import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.Shapes
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -69,7 +65,6 @@ private fun ShowDetailsBody(viewModel: TVShowDetailsViewModel, navController: Na
                 },
                 backgroundColor = MaterialTheme.colors.primary,
                 contentColor = Color.White,
-                elevation = 12.dp
             )
         },
     ) {
@@ -107,7 +102,10 @@ fun ShowDetails(tvShowModel: TVShowModel) = with(tvShowModel) {
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ImageLoader(tvShowModel.imageUrl)
+        ImageLoader(
+            imageUrl = imageUrl,
+            modifier = Modifier.height(350.dp)
+        )
 
         ShowDetailsBox(tvShowModel)
     }
@@ -119,7 +117,7 @@ fun ShowDetailsBox(tvShowModel: TVShowModel) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .clip(Shapes.small)
             .background(Color.White)
             .padding(vertical = 16.dp, horizontal = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -151,7 +149,8 @@ fun ShowGenres(genres: List<String>) {
     Row {
         TVMazeSimpleFieldText(
             stringResource(id = R.string.genres),
-            fontWeight = FontWeight.ExtraBold
+            fontWeight = FontWeight.ExtraBold,
+            maxLines = 2
         )
         Spacer(modifier = Modifier.width(2.dp))
         genres.forEachIndexed { index, text ->
@@ -160,25 +159,9 @@ fun ShowGenres(genres: List<String>) {
                     "$text, "
                 } else {
                     text
-                }
+                },
+                maxLines = 2
             )
-        }
-    }
-}
-
-@Composable
-private fun ShowImage(imageUrl: String) {
-    SubcomposeAsyncImage(
-        model = imageUrl,
-        contentScale = ContentScale.Fit,
-        modifier = Modifier.height(350.dp),
-        contentDescription = stringResource(R.string.poster_description)
-    ) {
-        val state = painter.state
-        if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-            CircularProgressIndicator(modifier = Modifier.padding(100.dp))
-        } else {
-            SubcomposeAsyncImageContent()
         }
     }
 }
@@ -207,9 +190,12 @@ fun Summary(summary: String) {
 @Composable
 fun ShowField(fieldName: String, fieldValue: String?) {
     Row(horizontalArrangement = Arrangement.Center) {
-        TVMazeSimpleFieldText(text = "$fieldName:", fontWeight = FontWeight.ExtraBold)
+        TVMazeSimpleFieldText(text = "$fieldName:", fontWeight = FontWeight.ExtraBold, maxLines = 2)
         Spacer(modifier = Modifier.width(2.dp))
-        TVMazeSimpleFieldText(text = fieldValue ?: stringResource(id = R.string.unknown))
+        TVMazeSimpleFieldText(
+            text = fieldValue ?: stringResource(id = R.string.unknown),
+            maxLines = 2
+        )
     }
 }
 
@@ -245,7 +231,7 @@ fun Episodes(episodes: List<EpisodeModel>, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
+            .clip(Shapes.small)
             .background(Color.White)
     ) {
         episodes.forEach {
@@ -259,7 +245,7 @@ fun Episode(episodeModel: EpisodeModel, navController: NavController) {
     Column(
         modifier = Modifier
             .padding(vertical = 4.dp)
-            .border(1.dp, Color.Black, RoundedCornerShape(CornerSize(4.dp)))
+            .border(1.dp, Color.Black, Shapes.small)
             .fillMaxWidth()
             .clickable {
                 navController.navigate(Screen.TVShowEpisodeDetail.route + "/${episodeModel.id}")
@@ -269,7 +255,7 @@ fun Episode(episodeModel: EpisodeModel, navController: NavController) {
         TVMazeSimpleFieldText(
             text = "${episodeModel.number} - ${episodeModel.name}",
             modifier = Modifier.fillMaxWidth(),
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         )
     }
 }
@@ -282,7 +268,7 @@ private fun EpisodeImage(episodeModel: EpisodeModel) {
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
-                .clip(RoundedCornerShape(4.dp))
+                .clip(Shapes.small)
         )
     }
 }

@@ -1,6 +1,5 @@
 package com.viniciuscoscia.tvmazeseries.presenter.ui.component
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -16,7 +15,7 @@ import com.viniciuscoscia.tvmazeseries.R
 @Composable
 fun ImageLoader(
     imageUrl: String?,
-    modifier: Modifier = Modifier.height(350.dp),
+    modifier: Modifier,
     contentScale: ContentScale = ContentScale.Fit
 ) {
     SubcomposeAsyncImage(

@@ -38,6 +38,8 @@ object Libs {
         "androidx.navigation:navigation-fragment-ktx:${Versions.androidNavigation}"
     const val androidNavigationUi =
         "androidx.navigation:navigation-ui-ktx:${Versions.androidNavigation}"
+    const val androidNavigationCompose =
+        "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     const val coil = "io.coil-kt:coil:${Versions.coil}"
     const val coilCompose = "io.coil-kt:coil-compose:${Versions.coil}"
     const val coroutines =
@@ -63,8 +65,6 @@ object Libs {
     const val lifecycleViewModel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
-    const val navigationCompose =
-        "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     const val pagingCompose = "androidx.paging:paging-compose:1.0.0-alpha14"
     const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
     const val roomKtx = "androidx.room:room-ktx:${Versions.room}"

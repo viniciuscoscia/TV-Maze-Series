@@ -88,7 +88,7 @@ dependencies {
     implementation(Libs.composeFoundation)
     implementation(Libs.composeFoundationLayout)
     implementation(Libs.activityCompose)
-    implementation(Libs.navigationCompose)
+    implementation(Libs.androidNavigationCompose)
     implementation(Libs.pagingCompose)
     debugImplementation(Libs.composeTooling)
 

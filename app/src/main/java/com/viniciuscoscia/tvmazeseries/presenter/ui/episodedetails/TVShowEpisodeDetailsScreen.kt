@@ -3,7 +3,6 @@ package com.viniciuscoscia.tvmazeseries.presenter.ui.episodedetails
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -18,6 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.presenter.ui.component.*
+import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.Shapes
 import org.koin.androidx.compose.getViewModel
 
 @Composable
@@ -67,25 +67,30 @@ fun TVShowEpisodeDetailsScreen(
                                     imageUrl = details.image,
                                     modifier = Modifier
                                         .fillMaxWidth()
-                                        .height(300.dp),
+                                        .height(250.dp),
                                     contentScale = ContentScale.Crop
                                 )
                             }
 
                             Column(
                                 modifier = Modifier
-                                    .padding(vertical = 16.dp)
-                                    .clip(RoundedCornerShape(12.dp))
+                                    .padding(all = 16.dp)
+                                    .clip(Shapes.small)
                                     .background(Color.White)
-                                    .padding(horizontal = 8.dp)
+                                    .padding(all = 8.dp)
                                     .fillMaxWidth(),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Spacer(modifier = Modifier.height(8.dp))
                                 TVMazeTitle(text = "${details.number} - ${details.name}")
-                                TVMazeSimpleFieldText(text = "${stringResource(id = R.string.season)} ${details.season}")
+
+                                TVMazeSimpleFieldText(
+                                    text = "${stringResource(id = R.string.season)} ${details.season}",
+                                    maxLines = 2
+                                )
 
                                 details.summary?.run {
+                                    Spacer(modifier = Modifier.height(8.dp))
                                     TVMazeHtmlView(htmlCode = this)
                                 }
                             }

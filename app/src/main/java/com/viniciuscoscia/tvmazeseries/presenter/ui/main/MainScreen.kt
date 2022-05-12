@@ -3,6 +3,7 @@
 package com.viniciuscoscia.tvmazeseries.presenter.ui.main
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.MaterialTheme
@@ -59,7 +60,11 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewM
         )
     }) {
         viewModel.ObserveErrorState()
-        Column(Modifier.fillMaxSize()) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+        ) {
             TVShowsGrid(navController, viewModel.getTvShows())
         }
     }

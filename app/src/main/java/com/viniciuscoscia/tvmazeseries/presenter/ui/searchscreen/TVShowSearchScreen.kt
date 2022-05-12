@@ -60,11 +60,10 @@ fun TVShowSearchScreen(
 
             val cellState by remember { mutableStateOf(CELL_COUNT) }
             LazyVerticalGrid(
-                cells = GridCells.Fixed(cellState),
-                contentPadding = PaddingValues(8.dp)
+                cells = GridCells.Fixed(cellState)
             ) {
                 items(shows.value.size) { index ->
-                    val show = shows.value[index] ?: return@items
+                    val show = shows.value[index]
                     TVShowCard(show = show, navController = navController)
                 }
             }

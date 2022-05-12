@@ -14,7 +14,8 @@ fun TVMazeSimpleFieldText(
     modifier: Modifier = Modifier,
     textColor: Color = Color.Black,
     textAlign: TextAlign = TextAlign.Center,
-    fontWeight: FontWeight = FontWeight.Medium
+    fontWeight: FontWeight = FontWeight.Medium,
+    maxLines: Int = Int.MAX_VALUE
 ) {
     Text(
         modifier = modifier,
@@ -22,6 +23,7 @@ fun TVMazeSimpleFieldText(
         color = textColor,
         textAlign = textAlign,
         fontWeight = fontWeight,
+        maxLines = maxLines,
         style = MaterialTheme.typography.body1
     )
 }
