@@ -1,4 +1,4 @@
-package com.viniciuscoscia.tvmazeseries.presenter.ui.component
+package com.viniciuscoscia.tvmazeseries.presenter.ui.composables
 
 import android.widget.TextView
 import androidx.compose.runtime.Composable

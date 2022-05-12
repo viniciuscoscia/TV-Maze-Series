@@ -16,7 +16,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.viniciuscoscia.tvmazeseries.R
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.*
+import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.*
 import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.Shapes
 import org.koin.androidx.compose.getViewModel
 
@@ -77,7 +77,7 @@ fun TVShowEpisodeDetailsScreen(
                                     .padding(all = 16.dp)
                                     .clip(Shapes.small)
                                     .background(Color.White)
-                                    .padding(all = 8.dp)
+                                    .padding(all = 16.dp)
                                     .fillMaxWidth(),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {

@@ -18,12 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.viniciuscoscia.tvmazeseries.R
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.CELL_COUNT
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.TVMazeShowLoading
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.TVShowCard
+import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.CELL_COUNT
+import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.TVMazeShowLoading
+import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.TVMazeSimpleFieldText
+import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.TVShowCard
 import com.viniciuscoscia.tvmazeseries.presenter.util.ObserveErrorState
 import org.koin.androidx.compose.getViewModel
 
@@ -46,27 +46,47 @@ fun TVShowSearchScreen(
             },
             backgroundColor = MaterialTheme.colors.primary,
             contentColor = Color.White,
-            elevation = 12.dp
         )
     }) {
         viewModel.searchForShowByName(showName)
         viewModel.ObserveErrorState()
         Column(Modifier.fillMaxSize()) {
-            val shows = viewModel.shows
-            if (shows.value.isEmpty()) {
-                TVMazeShowLoading()
-                return@Column
-            }
+            val uiModel = viewModel.shows.value
 
-            val cellState by remember { mutableStateOf(CELL_COUNT) }
-            LazyVerticalGrid(
-                cells = GridCells.Fixed(cellState)
-            ) {
-                items(shows.value.size) { index ->
-                    val show = shows.value[index]
-                    TVShowCard(show = show, navController = navController)
+            when {
+                uiModel.loading -> {
+                    TVMazeShowLoading()
+                }
+                uiModel.shows.isNullOrEmpty() -> {
+                    ShowNoResultsFound(showName)
+                }
+                else -> {
+                    val cellState by remember { mutableStateOf(CELL_COUNT) }
+                    LazyVerticalGrid(
+                        cells = GridCells.Fixed(cellState)
+                    ) {
+                        items(uiModel.shows.size) { index ->
+                            val show = uiModel.shows[index]
+                            TVShowCard(show = show, navController = navController)
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ShowNoResultsFound(showName: String) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TVMazeSimpleFieldText(
+            text = stringResource(
+                id = R.string.no_results_found_for, showName
+            )
+        )
     }
 }

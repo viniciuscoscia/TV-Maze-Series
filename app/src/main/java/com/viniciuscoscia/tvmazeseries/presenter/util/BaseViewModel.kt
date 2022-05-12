@@ -3,7 +3,7 @@ package com.viniciuscoscia.tvmazeseries.presenter.util
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.ErrorDialog
+import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.ErrorDialog
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.koin.core.component.KoinComponent

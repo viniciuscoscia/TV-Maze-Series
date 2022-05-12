@@ -1,4 +1,4 @@
-package com.viniciuscoscia.tvmazeseries.presenter.ui.component
+package com.viniciuscoscia.tvmazeseries.presenter.ui.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,15 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.AsyncImagePainter
-import coil.compose.SubcomposeAsyncImage
-import coil.compose.SubcomposeAsyncImageContent
-import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
 
@@ -32,7 +27,7 @@ fun TVShowCard(show: TVShowModel, navController: NavController) {
             .fillMaxWidth()
             .height(cardHeight)
             .padding(2.dp),
-        elevation = 10.dp
+        elevation = 12.dp
     ) {
         Column(
             Modifier
@@ -42,21 +37,13 @@ fun TVShowCard(show: TVShowModel, navController: NavController) {
                     navController.navigate(Screen.TVShowDetailsScreen.route + "/${show.id}")
                 },
         ) {
-            SubcomposeAsyncImage(
-                model = show.imageSmallUrl,
-                contentScale = ContentScale.Crop,
+            ImageLoader(
+                imageUrl = show.imageSmallUrl,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(height = 260.dp),
-                contentDescription = stringResource(R.string.poster_description)
-            ) {
-                val state = painter.state
-                if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-                    CircularProgressIndicator(modifier = Modifier.padding(50.dp))
-                } else {
-                    SubcomposeAsyncImageContent()
-                }
-            }
+                contentScale = ContentScale.Crop
+            )
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,

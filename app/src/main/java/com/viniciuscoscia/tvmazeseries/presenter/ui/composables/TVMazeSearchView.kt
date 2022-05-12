@@ -1,4 +1,4 @@
-package com.viniciuscoscia.tvmazeseries.presenter.ui.component
+package com.viniciuscoscia.tvmazeseries.presenter.ui.composables
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

@@ -29,7 +29,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.*
+import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.*
 import com.viniciuscoscia.tvmazeseries.presenter.util.ObserveErrorState
 import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.compose.getViewModel

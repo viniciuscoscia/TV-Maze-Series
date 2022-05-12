@@ -30,7 +30,7 @@ import com.viniciuscoscia.tvmazeseries.domain.model.EpisodeModel
 import com.viniciuscoscia.tvmazeseries.domain.model.SeasonModel
 import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
-import com.viniciuscoscia.tvmazeseries.presenter.ui.component.*
+import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.*
 import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.Shapes
 import org.koin.androidx.compose.getViewModel
 
@@ -247,12 +247,12 @@ fun Episodes(episodes: List<EpisodeModel>, navController: NavController) {
 fun Episode(episodeModel: EpisodeModel, navController: NavController) {
     Card(
         modifier = Modifier
-            .padding(all = 4.dp)
+            .padding(all = 8.dp)
             .fillMaxWidth()
             .clickable {
                 navController.navigate(Screen.TVShowEpisodeDetail.route + "/${episodeModel.id}")
             },
-        elevation = 4.dp
+        elevation = 8.dp
     ) {
         Column(
             modifier = Modifier

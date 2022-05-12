@@ -1,13 +1,16 @@
-package com.viniciuscoscia.tvmazeseries.presenter.ui.component
+package com.viniciuscoscia.tvmazeseries.presenter.ui.composables
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImagePainter
@@ -39,7 +42,12 @@ fun ImageLoader(
             }
             is AsyncImagePainter.State.Error,
             is AsyncImagePainter.State.Empty -> {
-                // Error
+                Image(
+                    painterResource(R.drawable.no_poster),
+                    contentDescription = "",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.fillMaxSize()
+                )
             }
             else -> {
                 SubcomposeAsyncImageContent()
