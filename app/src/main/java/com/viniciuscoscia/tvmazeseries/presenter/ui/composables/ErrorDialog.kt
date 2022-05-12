@@ -15,6 +15,7 @@ import com.viniciuscoscia.tvmazeseries.presenter.util.ErrorState
 @Composable
 fun ErrorDialog(
     errorState: ErrorState,
+    onConfirmButtonClicked: (() -> Unit)? = null,
     onDismiss: () -> Unit
 ) {
     if (errorState !is ErrorState.Error) return
@@ -31,6 +32,7 @@ fun ErrorDialog(
         confirmButton = {
             Button(modifier = Modifier.padding(8.dp),
                 onClick = {
+                    onConfirmButtonClicked?.invoke()
                     onDismiss()
                 }) {
                 Text(stringResource(id = R.string.okay))

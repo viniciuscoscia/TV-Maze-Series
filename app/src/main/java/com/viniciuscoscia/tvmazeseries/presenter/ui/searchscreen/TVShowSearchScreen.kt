@@ -3,6 +3,7 @@
 package com.viniciuscoscia.tvmazeseries.presenter.ui.searchscreen
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.CELL_COUNT
@@ -50,7 +52,11 @@ fun TVShowSearchScreen(
     }) {
         viewModel.searchForShowByName(showName)
         viewModel.ObserveErrorState()
-        Column(Modifier.fillMaxSize()) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+        ) {
             val uiModel = viewModel.shows.value
 
             when {
@@ -79,7 +85,10 @@ fun TVShowSearchScreen(
 @Composable
 private fun ShowNoResultsFound(showName: String) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(50.dp)
+            .background(Color.White),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {

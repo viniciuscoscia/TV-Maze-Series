@@ -27,8 +27,11 @@ sealed interface ErrorState {
 }
 
 @Composable
-fun BaseViewModel.ObserveErrorState() {
-    ErrorDialog(errorState = errorState.collectAsState().value) {
+fun BaseViewModel.ObserveErrorState(onConfirmButtonClicked: (() -> Unit)? = null) {
+    ErrorDialog(
+        errorState = errorState.collectAsState().value,
+        onConfirmButtonClicked = onConfirmButtonClicked
+    ) {
         dismissError()
     }
 }

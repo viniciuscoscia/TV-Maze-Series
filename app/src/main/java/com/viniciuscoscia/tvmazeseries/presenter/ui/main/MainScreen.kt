@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.viniciuscoscia.tvmazeseries.R
@@ -31,7 +30,6 @@ import com.viniciuscoscia.tvmazeseries.domain.model.TVShowModel
 import com.viniciuscoscia.tvmazeseries.presenter.navigation.Screen
 import com.viniciuscoscia.tvmazeseries.presenter.ui.composables.*
 import com.viniciuscoscia.tvmazeseries.presenter.util.ObserveErrorState
-import kotlinx.coroutines.flow.Flow
 import org.koin.androidx.compose.getViewModel
 import timber.log.Timber
 
@@ -59,13 +57,14 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewM
             elevation = 12.dp
         )
     }) {
-        viewModel.ObserveErrorState()
+        val showsPagingItems = viewModel.getTvShows().collectAsLazyPagingItems()
+        viewModel.ObserveErrorState { showsPagingItems.refresh() }
         Column(
             Modifier
                 .fillMaxSize()
                 .background(Color.Black)
         ) {
-            TVShowsGrid(navController, viewModel.getTvShows())
+            TVShowsGrid(navController, showsPagingItems)
         }
     }
 }
@@ -73,24 +72,23 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewM
 @Composable
 private fun TVShowsGrid(
     navController: NavController,
-    tvShows: Flow<PagingData<TVShowModel>>,
+    tvShows: LazyPagingItems<TVShowModel>,
     viewModel: MainViewModel = getViewModel()
 ) {
     val cellState by remember { mutableStateOf(CELL_COUNT) }
-    val shows: LazyPagingItems<TVShowModel> = tvShows.collectAsLazyPagingItems()
 
     LazyVerticalGrid(
         cells = GridCells.Fixed(cellState),
         content = {
-            if (shows.loadState.refresh is LoadState.Error) {
+            if (tvShows.loadState.refresh is LoadState.Error) {
                 viewModel.onPagingError()
                 return@LazyVerticalGrid
             }
-            items(shows.itemCount) { index ->
-                val show = shows[index] ?: return@items
+            items(tvShows.itemCount) { index ->
+                val show = tvShows[index] ?: return@items
                 TVShowCard(show = show, navController = navController)
             }
-            renderLoading(shows.loadState)
+            renderLoading(tvShows.loadState)
         }
     )
 }
