@@ -4,8 +4,11 @@ package com.viniciuscoscia.tvmazeseries.presenter.ui.showdetails
 
 import android.widget.TextView
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.*
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -242,21 +245,28 @@ fun Episodes(episodes: List<EpisodeModel>, navController: NavController) {
 
 @Composable
 fun Episode(episodeModel: EpisodeModel, navController: NavController) {
-    Column(
+    Card(
         modifier = Modifier
-            .padding(vertical = 4.dp)
-            .border(1.dp, Color.Black, Shapes.small)
+            .padding(all = 4.dp)
             .fillMaxWidth()
             .clickable {
                 navController.navigate(Screen.TVShowEpisodeDetail.route + "/${episodeModel.id}")
-            }
+            },
+        elevation = 4.dp
     ) {
-        EpisodeImage(episodeModel)
-        TVMazeSimpleFieldText(
-            text = "${episodeModel.number} - ${episodeModel.name}",
-            modifier = Modifier.fillMaxWidth(),
-            fontWeight = FontWeight.Bold,
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            EpisodeImage(episodeModel)
+            TVMazeSimpleFieldText(
+                text = "${episodeModel.number} - ${episodeModel.name}",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 4.dp),
+                fontWeight = FontWeight.Bold,
+            )
+        }
     }
 }
 
@@ -268,7 +278,6 @@ private fun EpisodeImage(episodeModel: EpisodeModel) {
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxSize()
-                .clip(Shapes.small)
         )
     }
 }

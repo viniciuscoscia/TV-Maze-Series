@@ -47,7 +47,6 @@ fun TVShowCard(show: TVShowModel, navController: NavController) {
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(2.dp)
                     .height(height = 260.dp),
                 contentDescription = stringResource(R.string.poster_description)
             ) {

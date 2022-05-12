@@ -1,8 +1,11 @@
 package com.viniciuscoscia.tvmazeseries.presenter.ui.component
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
@@ -16,6 +19,7 @@ import com.viniciuscoscia.tvmazeseries.R
 fun ImageLoader(
     imageUrl: String?,
     modifier: Modifier,
+    progressBarSize: Int = 30,
     contentScale: ContentScale = ContentScale.Fit
 ) {
     SubcomposeAsyncImage(
@@ -24,11 +28,22 @@ fun ImageLoader(
         modifier = modifier,
         contentDescription = stringResource(R.string.poster_description)
     ) {
-        val state = painter.state
-        if (state is AsyncImagePainter.State.Loading || state is AsyncImagePainter.State.Error) {
-            CircularProgressIndicator(modifier = Modifier.padding(100.dp))
-        } else {
-            SubcomposeAsyncImageContent()
+        when (painter.state) {
+            is AsyncImagePainter.State.Loading -> {
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator(Modifier.size(progressBarSize.dp))
+                }
+            }
+            is AsyncImagePainter.State.Error,
+            is AsyncImagePainter.State.Empty -> {
+                // Error
+            }
+            else -> {
+                SubcomposeAsyncImageContent()
+            }
         }
     }
 }
