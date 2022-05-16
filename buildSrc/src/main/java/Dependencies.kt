@@ -7,6 +7,7 @@ object Versions {
     const val kotlin = "1.6.10"
     const val ktx = "1.7.0"
     const val gradlePlugin = "7.0.1"
+    const val androidPlugin = "7.2.0"
     const val kotlinCoroutines = "1.6.1"
     const val lifecycle = "2.4.1"
     const val compose = "1.1.1"
@@ -90,13 +91,16 @@ object Plugins {
 }
 
 object ClassPaths {
+    const val androidPlugin = "com.android.tools.build:gradle:${Versions.androidPlugin}"
     const val gradlePlugin = "com.android.tools.build:gradle:${Versions.gradlePlugin}"
     const val kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val koinPlugin = "io.insert-koin:koin-gradle-plugin:${Versions.koin}"
-    const val navigationSafeArgsPlugin = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.androidNavigation}"
+    const val navigationSafeArgsPlugin =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.androidNavigation}"
 }
 
 const val latestSdk = 32
+
 object Configs {
     const val applicationId = "com.viniciuscoscia.tvmazeseries"
     const val compileSdkVersion = latestSdk
