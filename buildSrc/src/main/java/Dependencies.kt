@@ -23,7 +23,6 @@ object Versions {
     const val retrofitMoshi = "2.9.0"
     const val okHttpLog = "4.9.3"
     const val moshi = "1.13.0"
-    const val checkDependencyUpdates = "1.5.0"
 }
 
 object Libs {
@@ -86,7 +85,6 @@ object Plugins {
     const val kotlinKapt = "kotlin-kapt"
     const val navigationSafeArgs = "androidx.navigation.safeargs.kotlin"
     const val koin = "koin"
-    const val checkDependencyUpdates = "name.remal.check-dependency-updates"
 }
 
 object ClassPaths {
