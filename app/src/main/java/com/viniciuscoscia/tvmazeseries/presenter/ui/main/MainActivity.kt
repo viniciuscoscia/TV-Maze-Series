@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -30,7 +31,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.lifecycleScope
+import androidx.constraintlayout.compose.ChainStyle
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
+import androidx.constraintlayout.compose.Dimension
 import com.viniciuscoscia.tvmazeseries.R
 import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.Shapes
 import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.TVMazeSeriesTheme
@@ -46,37 +50,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     scaffoldState = scaffoldState
                 ) {
-                    var textState by remember {
-                        mutableStateOf("Batata")
-                    }
-                    //prefirir usar contexto da aplicação
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = 30.dp)
-                    ) {
-                        TextField(
-                            value = textState,
-                            onValueChange = {
-                                textState = it
-                            },
-                            singleLine = true,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                        Spacer(Modifier.height(16.dp))
-                        Snackbar {
-                            Text(text = "Hello, World!")
-                        }
-                        Button(onClick = {
-                            lifecycleScope.launch {
-                                scaffoldState.snackbarHostState.showSnackbar("Hello, $textState")
-                            }
-                        }) {
-                            Text(text = "Pls greet me")
-                        }
-                    }
+                    TestBody()
                 }
             }
         }
@@ -86,7 +60,84 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 private fun TestBody() {
+    val constraints = ConstraintSet {
+        val greenBox = createRefFor("greenbox")
+        val redBox = createRefFor("redbox")
+        val guideline = createGuidelineFromTop(0.5f)
 
+        constrain(greenBox) {
+            top.linkTo(guideline)
+            start.linkTo(parent.start)
+            width = Dimension.value(100.dp)
+            height = Dimension.value(100.dp)
+        }
+
+        constrain(redBox) {
+            top.linkTo(parent.top)
+            start.linkTo(greenBox.end)
+            end.linkTo(parent.end)
+            width = Dimension.value(100.dp)
+            height = Dimension.value(100.dp)
+        }
+
+        createHorizontalChain(greenBox, redBox, chainStyle = ChainStyle.Packed)
+    }
+
+    ConstraintLayout(
+        constraintSet = constraints,
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Box(
+            modifier = Modifier
+                .background(Color.Green)
+                .layoutId("greenbox")
+        )
+
+        Box(
+            modifier = Modifier
+                .background(Color.Red)
+                .layoutId("redbox")
+        )
+    }
+}
+
+@Composable
+private fun ShowSnackbar(scaffoldState: ScaffoldState) {
+    val scope = rememberCoroutineScope()
+
+    var textState by remember {
+        mutableStateOf("Batata")
+    }
+    //prefirir usar o contexto da aplicação para evitar memory leaks
+
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 30.dp)
+    ) {
+        TextField(
+            value = textState,
+            onValueChange = {
+                textState = it
+            },
+            singleLine = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Spacer(Modifier.height(16.dp))
+        Snackbar {
+            Text(text = "Hello, World!")
+        }
+        Button(onClick = {
+            scope.launch {
+                scaffoldState.snackbarHostState.showSnackbar("Hello, $textState")
+            }
+        }) {
+            Text(text = "Pls greet me")
+        }
+    }
 }
 
 @Composable

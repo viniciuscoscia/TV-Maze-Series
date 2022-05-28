@@ -90,6 +90,7 @@ dependencies {
     implementation(Libs.activityCompose)
     implementation(Libs.androidNavigationCompose)
     implementation(Libs.pagingCompose)
+    implementation(Libs.composeConstraintLayout)
     debugImplementation(Libs.composeTooling)
 
     // Coil

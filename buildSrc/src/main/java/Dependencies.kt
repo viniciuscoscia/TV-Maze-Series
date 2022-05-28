@@ -11,6 +11,7 @@ object Versions {
     const val kotlinCoroutines = "1.6.1"
     const val lifecycle = "2.4.1"
     const val compose = "1.1.1"
+    const val composeConstraintLayout = "1.0.0"
     const val navigationCompose = "2.4.2"
     const val jUnit = "4.13.2"
     const val androidExtJUnit = "1.1.3"
@@ -47,15 +48,17 @@ object Libs {
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.kotlinCoroutines}"
     const val coroutinesAndroid =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
-    const val coroutineTest =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutines}"
-    const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
-    const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
+    const val composeConstraintLayout =
+        "androidx.constraintlayout:constraintlayout-compose:${Versions.composeConstraintLayout}"
     const val composeFoundation = "androidx.compose.foundation:foundation:${Versions.compose}"
     const val composeFoundationLayout =
         "androidx.compose.foundation:foundation-layout:${Versions.compose}"
+    const val composeMaterial = "androidx.compose.material:material:${Versions.compose}"
+    const val coroutineTest =
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.kotlinCoroutines}"
     const val composeTooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
     const val composeToolingPreview = "androidx.compose.ui:ui-tooling-preview:${Versions.compose}"
+    const val composeUi = "androidx.compose.ui:ui:${Versions.compose}"
     const val jUnit = "junit:junit:${Versions.jUnit}"
     const val koinAndroid = "io.insert-koin:koin-android:${Versions.koin}"
     const val koinCompose = "io.insert-koin:koin-androidx-compose:${Versions.koin}"
