@@ -35,7 +35,9 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
+import androidx.navigation.compose.rememberNavController
 import com.viniciuscoscia.tvmazeseries.R
+import com.viniciuscoscia.tvmazeseries.presenter.navigation.NavigationComponent
 import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.Shapes
 import com.viniciuscoscia.tvmazeseries.presenter.ui.theme.TVMazeSeriesTheme
 import kotlinx.coroutines.launch
@@ -45,13 +47,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             TVMazeSeriesTheme {
-                val scaffoldState = rememberScaffoldState()
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    scaffoldState = scaffoldState
-                ) {
-                    TestBody()
-                }
+                val navController = rememberNavController()
+                NavigationComponent(navController)
             }
         }
     }

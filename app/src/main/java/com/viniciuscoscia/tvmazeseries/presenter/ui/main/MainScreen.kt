@@ -64,7 +64,12 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewM
                 .fillMaxSize()
                 .background(Color.Black)
         ) {
-            TVShowsGrid(navController, showsPagingItems)
+            TVShowsGrid(navController = navController,
+                tvShows = showsPagingItems,
+                onPagingError = {
+                    viewModel.onPagingError()
+                }
+            )
         }
     }
 }
@@ -73,7 +78,7 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = getViewM
 private fun TVShowsGrid(
     navController: NavController,
     tvShows: LazyPagingItems<TVShowModel>,
-    viewModel: MainViewModel = getViewModel()
+    onPagingError: () -> Unit
 ) {
     val cellState by remember { mutableStateOf(CELL_COUNT) }
 
@@ -81,7 +86,7 @@ private fun TVShowsGrid(
         cells = GridCells.Fixed(cellState),
         content = {
             if (tvShows.loadState.refresh is LoadState.Error) {
-                viewModel.onPagingError()
+                onPagingError()
                 return@LazyVerticalGrid
             }
             items(tvShows.itemCount) { index ->
