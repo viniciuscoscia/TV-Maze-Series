@@ -10,6 +10,7 @@ buildscript {
         classpath(ClassPaths.kotlinPlugin)
         classpath(ClassPaths.koinPlugin)
         classpath(ClassPaths.navigationSafeArgsPlugin)
+        classpath(ClassPaths.androidPlugin)
     }
 }
 
