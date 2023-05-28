@@ -11,7 +11,7 @@ object Versions {
     const val kotlinCoroutines = "1.6.1"
     const val lifecycle = "2.4.1"
     const val compose = "1.1.1"
-    const val composeConstraintLayout = "1.0.0"
+    const val composeConstraintLayout = "1.0.1"
     const val navigationCompose = "2.4.2"
     const val jUnit = "4.13.2"
     const val androidExtJUnit = "1.1.3"
