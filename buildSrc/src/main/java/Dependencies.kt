@@ -68,7 +68,7 @@ object Libs {
     const val lifecycleViewModel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
-    const val pagingCompose = "androidx.paging:paging-compose:1.0.0-alpha14"
+    const val pagingCompose = "androidx.paging:paging-compose:1.0.0-alpha20"
     const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
     const val roomKtx = "androidx.room:room-ktx:${Versions.room}"
     const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
