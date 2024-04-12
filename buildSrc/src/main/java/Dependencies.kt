@@ -17,7 +17,7 @@ object Versions {
     const val androidExtJUnit = "1.1.3"
     const val androidEspresso = "3.4.0"
     const val androidNavigation = "2.4.2"
-    const val koin = "3.1.6"
+    const val koin = "3.5.6"
     const val room = "2.4.2"
     const val timber = "5.0.1"
     const val multidex = "2.0.1"
