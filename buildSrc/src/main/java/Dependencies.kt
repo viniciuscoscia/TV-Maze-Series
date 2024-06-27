@@ -14,7 +14,7 @@ object Versions {
     const val composeConstraintLayout = "1.0.0"
     const val navigationCompose = "2.4.2"
     const val jUnit = "4.13.2"
-    const val androidExtJUnit = "1.1.3"
+    const val androidExtJUnit = "1.2.1"
     const val androidEspresso = "3.4.0"
     const val androidNavigation = "2.4.2"
     const val koin = "3.1.6"
