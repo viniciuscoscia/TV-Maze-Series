@@ -8,7 +8,7 @@ object Versions {
     const val ktx = "1.7.0"
     const val gradlePlugin = "7.0.1"
     const val androidPlugin = "7.2.0"
-    const val kotlinCoroutines = "1.6.1"
+    const val kotlinCoroutines = "1.9.0"
     const val lifecycle = "2.4.1"
     const val compose = "1.1.1"
     const val composeConstraintLayout = "1.0.0"
