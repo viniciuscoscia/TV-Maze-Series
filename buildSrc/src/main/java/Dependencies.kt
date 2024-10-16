@@ -10,7 +10,7 @@ object Versions {
     const val androidPlugin = "7.2.0"
     const val kotlinCoroutines = "1.6.1"
     const val lifecycle = "2.4.1"
-    const val compose = "1.1.1"
+    const val compose = "1.7.4"
     const val composeConstraintLayout = "1.0.0"
     const val navigationCompose = "2.4.2"
     const val jUnit = "4.13.2"
