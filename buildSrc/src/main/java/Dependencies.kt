@@ -2,7 +2,7 @@ object Versions {
     const val androidAppCompat = "1.4.1"
     const val androidMaterial = "1.6.0"
     const val androidConstraint = "2.0.4"
-    const val activityCompose = "1.4.0"
+    const val activityCompose = "1.13.0"
     const val coil = "2.0.0-rc03"
     const val kotlin = "1.6.10"
     const val ktx = "1.7.0"
